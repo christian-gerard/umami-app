@@ -1,0 +1,304 @@
+description,name,type_id
+"HUMMUS, SABRA CLASSIC",hummus,16
+"MILK, 2% (WAVE 22E)",milk,1
+"Beef, Eye of Round roast/steak, lean only, raw, animal 5, select",beef,13
+"Proximates, Beef, Eye of Round roast/steak, lean only, raw, animal 5, select",proximates,13
+"Se - Beef,  Eye of Round roast/steak, select, raw, comp13, lean",se - beef,13
+"Minerals - Beef,  Eye of Round roast/steak, select, raw, comp13, lean",minerals - beef,13
+"B12, B6, B3, B2 - Beef, Eye of Round roast/steak, select, raw, comp5, lean",b12,13
+"FA - Beef, Eye of Round roast/steak, select, raw, comp5, lean",fa - beef,13
+"Choles, FA - Beef, Eye of Round roast/steak, select, raw, comp5, lean",choles,13
+"TOMATOES, GRAPE",tomatoes,11
+"SALT, MORTON, IODIZED",salt,2
+Salt; iodized,salt; iodized,2
+"BEANS, SNAP, CANNED, DRAINED, DEL MONTE",beans,11
+Beans snap canned drained,beans snap canned drained,11
+"Broccoli, raw (IN1,NY1) - CY0906E",broccoli,11
+"Vitamin C, Broccoli, raw (IN1,NY1) - NFY0904J9",vitamin c,11
+"HOT DOGS, BEEF, BALL PARK ANGUS",hot dogs,7
+Hot dogs beef,hot dogs beef,7
+"Frankfurter, beef, unheated",frankfurter,7
+"ALMONDS, DRY ROASTED, SALTED, BLUE DIAMOND",almonds,12
+Almonds dry roasted salted,almonds dry roasted salted,12
+"Nuts, almonds, dry roasted, with salt added",nuts,12
+"CHEESE, RICOTTA, WHOLE MILK, GALBANI",cheese,1
+Ricotta cheese whole milk - NFY1216UC,ricotta cheese whole milk,1
+"Ricotta cheese, whole milk - NFY1216W7",ricotta cheese,1
+"KALE, FRESH, UNPREPARED",kale,11
+"EGG, LIQUID WHOLE, Producer C, LOT 3",egg,1
+"LIQUID WHOLE EGG (PLAIN, NO SALT OR SUGAR)",liquid whole egg (plain,1
+Whole eggs,whole eggs,1
+ Whole eggs, whole eggs,1
+LIQUID EGG WHITE (WITHOUT WHIPPING AGENTS),liquid egg white (without whipping agents),1
+ Egg whites, egg whites,1
+Egg whites,egg whites,1
+DRIED STABILIZED EGG WHITE,dried stabilized egg white,1
+Egg whites dried,egg whites dried,1
+"SALSA, TOSTITOS CHUNKY - MEDIUM",salsa,6
+"Minerals, Salsa, TOSTITOS CHUNKY, MEDIUM (FL,MO) - NFY090KVS",minerals,6
+"Sugars, Salsa, TOSTITOS CHUNKY, MEDIUM (FL,MO) - NFY090KVV",sugars,6
+"TDF, Salsa, TOSTITOS CHUNKY, MEDIUM (FL,MO) - NFY090KVU",tdf,6
+"Vitamin K, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KUA",vitamin k,6
+"Niacin, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KU0",niacin,6
+"Pantothenic Acid, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KU5",pantothenic acid,6
+"Thiamin, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KU8",thiamin,6
+"Vitamin B6, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KU9",vitamin b6,6
+"Starch, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KUC",starch,6
+"Tocopherols, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KUD",tocopherols,6
+"Carotenoids, Salsa, TOSTITOS CHUNKY, MEDIUM (IN,NY) - NFY090KUE",carotenoids,6
+"Sauce, salsa, ready-to-serve",sauce,6
+"BEEF BREAKFAST SAUSAGE, BANQUET BROWN N SERVE SAUSAGE LINKS",beef breakfast sausage,7
+"Sausage, breakfast sausage, beef, pre-cooked, unprepared",sausage,7
+"Onion rings, frozen, oven-heated, ALEXIA (CA2,NC) - CY1205A",onion rings,11
+"ALEXIA, Onion rings, frozen (CA2) - NFY1206RO",alexia,11
+"SOUTHERN MEATS, Onion rings, frozen (AL 1) - NFY1206RG",southern meats,11
+"KROGER, Onion rings, frozen (MI1) - NFY1206RS",kroger,11
+"ORE-IDA, Onion rings, frozen (CA2) - NFY1206RA",ore-ida,11
+"Folate, Onion rings, frozen, ALEXIA (FL,MO) - NFY120686",folate,11
+"Riboflavin, Onion rings, frozen, ALEXIA (FL,MO) - NFY120689",riboflavin,11
+"Selenium, Onion rings, frozen, ALEXIA (FL,MO) - NFY12068A",selenium,11
+"Fatty Acids, Onion rings, frozen, ALEXIA (FL,MO) - NFY12068C",fatty acids,11
+"KROGER SWEET, Onion rings, frozen (CO1) - NFY12054N",kroger sweet,11
+"Choline, Onion rings, frozen, ALEXIA (AL,OK) - NFY12066V",choline,11
+"Pickles, kosher dill, spears, VLASIC (FL,MO) - CY120OX",pickles,11
+"Peanut butter, creamy, SKIPPY (MI) - CY120GH",peanut butter,16
+"Parmesan cheese, grated, KRAFT 100% (FL,MO) - CY120JF",parmesan cheese,1
+"Retinol, Parmesan cheese, grated, KRAFT 100% (AL,CA1) - NFY120DQN",retinol,1
+"Cholesterol, Parmesan cheese, grated, KRAFT 100% (AL,CA1) - NFY120DQP",cholesterol,1
+"Vitamin B12, Parmesan cheese, grated, KRAFT 100% (AL,CA1) - NFY120DR1",vitamin b12,1
+"American cheese, pasteurized process, mixed store brand (AL,OK) - CY090XU - other",american cheese,1
+"Vitamin D, American cheese, pasteurized process, KRAFT - NFY090HK4",vitamin d,1
+"GRAPEFRUIT JUICE, WHITE, SHELF STABLE, STORE BRAND",grapefruit juice,9
+Grapefruit juice white shelf stable ,grapefruit juice white shelf stable ,9
+"Peaches, raw, Region 2, C0009D, Pure Composite",peaches,9
+"SUNFLOWER SEEDS, DRY ROASTED, SALTED, STORE/OTHER",sunflower seeds,12
+Sunflower seeds dry roasted salted,sunflower seeds dry roasted salted,12
+"Seeds, sunflower seed kernels, dry roasted, with salt added",seeds,12
+"ITALIAN PORK SAUSAGE, STORE/OTHER, COOKED",italian pork sausage,7
+"White bread, store brand, mixed composite (IN1,NY1) - CY090EH",white bread,18
+"Bread, white, commercially prepared",bread,18
+"TURKEY BREAKFAST SAUSAGE, HONEYSUCKLE WHITE",turkey breakfast sausage,7
+"Swiss Cheese Slices, SARGENTO (FL) 18c-FL-SWC-75",swiss cheese slices,1
+"Carrots, sliced or crinkle cut, frozen, unprepared, mixed composite, C9818L",carrots,11
+"Mustard, yellow, FRENCHS CLASSIC (CA2,NC) - CY120PV",mustard,2
+"Prepared Yellow Mustard, Frenchs Classic Yellow Mustard, National, Pure - CY01335",prepared yellow mustard,2
+"Figs, Mission, Dried, Region 3, Pure Composite, CY0100S",figs,9
+"Mission Figs, Dried, Region 3, IL2, NFY010145",mission figs,9
+"Kiwi, Pass 2, Region 2, Pure Composite, CY010GA",kiwi,9
+"Kiwifruit, green, raw",kiwifruit,9
+"Cantaloupe, raw, Region 2, C0009H, Pure Composite",cantaloupe,9
+"Melons, cantaloupe, raw",melons,9
+"Nectarines, Raw, Pass 2, Region 2, Pure Composite, CY010G5",nectarines,9
+"Fresh Nectarines, Region 2, C0006C, Pure composite",fresh nectarines,9
+"Oranges, Navel, Pass 2, Region 2, CY0109W, Yes",oranges,9
+"Orange, Navel, Region 3, NFY01075S - Vitamin E (Composite CY0109X)",orange,9
+"Strawberries, Fresh, Pass 2, Region 2, CY010CC, Yes",strawberries,9
+"Fresh Strawberries, Region 4, C0006A, Pure composite",fresh strawberries,9
+"Lettuce, Romaine, fresh (FL1,MO1) - CY09070",lettuce,11
+"Folates, Lettuce, Romaine, fresh (FL1,MO1) - NFY0904OA",folates,11
+"Romaine Lettuce, Pass 2, Pure Composite, CY01085",romaine lettuce,11
+"Cheddar cheese, sliced, CRACKER BARREL (NY,NC) - CY120I5",cheddar cheese,1
+"Cottage cheese, 2% milkfat, BREAKSTONE (CT,NC) - CY120FR",cottage cheese,1
+"Cholesterol & moisture, Cottage cheese, 2% milkfat, DAISY (MO,CT) - NFY120BPD",cholesterol & moisture,1
+"Mozzarella cheese, low-moisture, part-skim, SARGENTO (MI) - CY120IO",mozzarella cheese,1
+"Mozzarella, low-moisture, part-skim, SARGENTO (MI1) - NFY120CWJ",mozzarella,1
+DRIED WHOLE EGG (WITHOUT FREE-FLOW AGENT ADDED),dried whole egg (without free-flow agent added),1
+Whole eggs dried,whole eggs dried,1
+"LIQUID EGG YOLK (PLAIN, NO SALT OR SUGAR)",liquid egg yolk (plain,1
+Egg yolk,egg yolk,1
+ Egg yolk, egg yolk,1
+DRIED EGG YOLK (WITHOUT FREE-FLOW AGENT ADDED),dried egg yolk (without free-flow agent added),1
+Egg yolks dried,egg yolks dried,1
+"Egg yolks, dried",egg yolks,1
+" Egg yolks, dried", egg yolks,1
+"Dry white cheese, Queso seco, DON FRANCISCO COTIJA (CA) - NFY0901GX",dry white cheese,1
+"Vitamin E, Cheese, dry white, Queso seco, mixed composite (CA-LA, CA-SD) - NFY0900B1",vitamin e,1
+"Amino Acids, Cheese, dry white, Queso seco, mixed composite (MD, NM) - NFY09009S",amino acids,1
+"Greek yogurt, CHOBANI PLAIN NON-FAT (NY1) - CY0921I",greek yogurt,1
+"Panthothenic Acid, Greek yogurt, CHOBANI PLAIN NON-FAT (AL1,CA1) - NFY091107",panthothenic acid,1
+"Yogurt, Greek, plain, nonfat",yogurt,1
+"Oil, coconut, LOU ANA (NC) CY1211H",oil,4
+"Ground turkey, 93% lean, 7% fat, pan-broiled crumbles (AL1)",ground turkey,5
+"Measures, crumbles, rep 1, Turkey, ground, 7% fat (AL1) ",measures,5
+"Turkey, ground, 7% fat (AL1) ",turkey,5
+"Total Fat, Ground turkey, 93% lean, 7% fat, pan-broiled crumbles (AL1)",total fat,5
+"Protein, ash,& moisture, Ground turkey, 93% lean, 7% fat, pan-broiled crumbles (AL1)",protein,5
+"Chicken, dark meat, lean only, drumstick, braised, non-enhanced (AL1,CA1) - 14B-06-05",chicken,5
+"FA, Chicken, dark meat, lean only, drumstick, braised, non-enhanced (AL1,CA1) - 14B-06-05-FattyAcids",fa,5
+"Fat, Chicken, dark meat, lean only, drumstick, braised, non-enhanced (AL1,CA1) - 14B-06-05-TotalFat",fat,5
+"Cholesterol-WT, Chicken, skin, raw, from drumsticks and thighs, non-enhanced (CO1,CT1,IN1) - 14B-01-03-Choles",cholesterol-wt,5
+"Meaures & comp, raw, rep 1, Chicken, drumstick, non-enhanced (MO1)",meaures & comp,5
+"Cholesterol-Cov, Chicken, dark meat, lean only, drumstick, roasted, non-enhanced (CO1,CT1,IN1) - 14B-05-03-cov",cholesterol-cov,5
+"Chicken breast, non-enhanced, braised, COX (IN) - 17a-14SU-CB",chicken breast,5
+"Tocopherol, Chicken breasts, boneless, skinless, non-enhanced, braised (MI,OK) - 17A-02-06-VitE",tocopherol,5
+"HAM, LUNCHEON MEAT, OSCAR MAYER DELI FRESH",ham,7
+Lunchmeat ham,lunchmeat ham,7
+"Lunchmeat, ham - NFY1210O9",lunchmeat,7
+"Pears, Bartlett, Region 4, Pure Composite, C0011Y",pears,9
+"Bartlett Pears, Regions 1 & 4, n/a, Yes, Carotenoids - NFY01056T (Freeze Dried)",bartlett pears,9
+"Green Anjou Pears, Regions 1 & 4, n/a, Yes, Carotenoids - NFY010577 (Freeze Dried)",green anjou pears,9
+"OLIVES, GREEN MANZANILLA STUFFED WITH PIMENTOS, MARIO",olives,9
+Olives green stuffed with pimentos,olives green stuffed with pimentos,9
+"CHORIZO PORK SAUSAGE, MIXED BRAND, COOKED",chorizo pork sausage,7
+"OATMEAL COOKIES WITH RAISINS, PEPPERIDGE FARM SOFT BAKED",oatmeal cookies with raisins,18
+"Cookies, oatmeal, soft, with raisins",cookies,18
+"Haddock, raw (CT) - CY060QU",haddock,15
+"Fish, haddock, raw",fish,15
+"Pollock, raw (CT) - CY060SY",pollock,15
+"Nitrogen, Pollock, raw (NATIONAL) - NFY060DRE",nitrogen,15
+"Tuna, canned, in water, drained solids,  BUMBLEBEE CHUNK LIGHT, IN WATER  (CA2,NC) - CY091JM",tuna,15
+"Vitamin D3 and 25-OH-D3, Tuna, canned, in water, drained solids,  BUMBLEBEE CHUNK LIGHT, IN WATER  (AL,CA1) - NFY090S0P",vitamin d3 and 25-oh-d3,15
+"Pantothenic Acid , Tuna, canned, in water, drained solids,  BUMBLEBEE CHUNK LIGHT, IN WATER  (AL,CA1) - NFY090S0R",pantothenic acid ,15
+Tuna; chunk light; canned in water; drained solids,tuna; chunk light; canned in water; drained solids,15
+"Sugar, Granulated, White, store brand (CA2, NC1, OK1) - CY040ZE",sugar,19
+"Albertsons Granulated Sugar, Granulated white (CA2) - NFY040Y31",albertsons granulated sugar,19
+C&H Granulated White Sugar (OK1) - NFY040Y38,c&h granulated white sugar (ok1),19
+"C&H, Sugar, Granulated, White (CA2) - NFY040Y35",c&h,19
+"Dixie Crystals, Sugar, Granulated, White (NC1) - NFY040Y2Y",dixie crystals,19
+"Domino Sugar - Premium Pure Cane, Granulated white (CT1) - NFY040Y2W",domino sugar - premium pure cane,19
+"Safeway Fine Granulated Sugar, Granulated white (CO2) - NFY040Y2Z",safeway fine granulated sugar,19
+"Kroger Sugar, Granulated white (IN1) - NFY040Y3G",kroger sugar,19
+"Total lipid, Sugar, Granulated, White, name brand (AL1, CA1, MI1) - NFY040XEJ",total lipid,19
+"Best Choice Sugar, Granulated white (MO1) - NFY040Y33",best choice sugar,19
+"Sweet And Sour Pork, Chinese restaurant (IN1,NY1) - CY09041",sweet and sour pork,25
+"Sweet And Sour Pork (pork only), Keilly Chinese Restaurant, NY, package wgt. 364.9 - NFY0904DE",sweet and sour pork (pork only),25
+"Sweet And Sour Pork (sauce only), Keilly Chinese Restaurant, NY, package wgt. 329.2 - NFY0904DH",sweet and sour pork (sauce only),25
+"Sweet And Sour Pork (sauce included in bag), Great Wall Chinese Rest, IN, package wgt. 521 - NFY0905CK",sweet and sour pork (sauce included in bag),25
+"Sweet And Sour Pork (sauce mixed in), Yun Yum Chinese Rest, NC, package wgt. 505.7 - NFY0905CR",sweet and sour pork (sauce mixed in),25
+"Sweet And Sour Pork (sauce included in cup), Wing Wong BBQ, FL, package wgt. 585.5 - NFY0905CO",sweet and sour pork (sauce included in cup),25
+"Restaurant, Chinese, sweet and sour pork",restaurant,25
+"Chinese Restaurant, Fried Rice (No Meat) (NY) - CY120CO",chinese restaurant,25
+"Tamale, Pork, restaurant item (NM) - CY0901I",tamale,25
+"Pupusas, Bean, flat stuffed corn biscuit, restaurant item (CA-AL,IL) - CY0900R",pupusas,25
+"Vit D, thiamin, panto - Beef, Top Loin steak, boneless, choice, raw, comp21, lean",vit d,13
+"Choline - Beef, Top Loin steak, boneless, choice, raw, comp21, lean",choline - beef,13
+"Vit E - Beef, Top Loin steak, boneless, U_choice, raw, comp1, lean",vit e - beef,13
+"Cholesterol - Beef, Top Loin steak, boneless, U_choice, raw, comp1, lean",cholesterol - beef,13
+"Whole wheat bread, Store brand/other, KROGER & AMERICAS CHOICE (IN,NY) - CY1202Q",whole wheat bread,18
+"AMERICAS CHOICE, Bread, 100% whole wheat (NY1) - NFY1206TU",americas choice,18
+"HEALTHY IDEAS, Bread, 100% whole wheat (CT1) - NFY12058M",healthy ideas,18
+"BAY VIEW FARMS, Bread, 100% whole wheat (CA2) - NFY12057U",bay view farms,18
+"NATURES OWN, Bread, 100% whole wheat (NC1) - NFY120557",natures own,18
+"STROEHMANN DUTCH COUNTY, Bread, 100% whole wheat (NY1) - NFY1206TS",stroehmann dutch county,18
+"GREAT VALUE, Bread, 100% whole wheat (OK1) - NFY1206P9",great value,18
+"HYVEE, Bread, 100% whole wheat (MO1) - NFY12058K",hyvee,18
+"PUBLIX, Bread, 100% whole wheat (FL1) - NFY12058S",publix,18
+"SAFEWAY, Bread, 100% whole wheat (CA1) - NFY1206P7",safeway,18
+"PEPPERIDGE FARM, Bread, 100% whole wheat (NC1) - NFY120559",pepperidge farm,18
+BURGER KING - HAM,burger king,10
+Ham ,ham ,10
+SUBWAY - HAM,subway,10
+PANERA - HAM,panera,10
+DUNKIN DONUTS - HAM,dunkin donuts,10
+IHOP - SLICED PROCESSED AMERICAN CHEESE,ihop,1
+MCDONALDS - PROCESSED AMERICAN CHEESE,mcdonalds,1
+Cheese; American,cheese; american,1
+CHICK-FIL-A - AMERICAN CHEESE,chick-fil-a,1
+DENNYS - AMERICAN CHEESE,dennys,1
+CHICK FIL A - AMERICAN CHEESE,chick fil a,1
+Ketchup,ketchup,11
+Ketchup ,ketchup ,11
+"EGGS, GRADE A, LARGE",eggs,1
+Eggs; whites,eggs; whites,1
+Eggs; whole,eggs; whole,1
+Eggs; yolk,eggs; yolk,1
+CANOLA OIL,canola oil,4
+Corn oil,corn oil,4
+VEGETABLE OIL (100% SOYBEAN OIL),vegetable oil (100% soybean oil),4
+Soybean oil,soybean oil,4
+"OLIVE OIL, EXTRA VIRGIN",olive oil,4
+"Bacon, cooked",bacon,10
+"IHOP - BACON, COOKED",ihop - bacon,10
+Bacon; cooked,bacon; cooked,10
+"Pork, cured, bacon, cooked, restaurant",pork,10
+"BUTTER, STICK, UNSALTED",butter,1
+"FLOUR, ALL PURPOSE (ENRICHED) (BLEACHED)",flour,20
+"ONIONS, RED",onions,11
+"BANANAS, OVERRIPE",bananas,9
+GARLIC,garlic,11
+"APPLES, RED DELICIOUS",apples,9
+"Soy milk, unsweetened, plain, shelf stable",soy milk,16
+"Almond milk, unsweetened, plain, shelf stable",almond milk,14
+"Mushroom, lion's mane",mushroom,11
+"Mushrooms, shiitake",mushrooms,11
+"Spinach, baby",spinach,11
+"Tomato, roma",tomato,11
+"Apple juice, with added vitamin C, from concentrate, shelf stable",apple juice,9
+"Orange juice, no pulp, not fortified, from concentrate, refrigerated",orange juice,9
+"Grape juice, purple, with added vitamin C, from concentrate, shelf stable",grape juice,9
+"Cranberry juice, not fortified, from concentrate, shelf stable",cranberry juice,9
+"Tomato juice, with added ingredients, from concentrate, shelf stable",tomato juice,11
+"APPLE JUICE FROM CONCENTRATE WITH ADDED VITAMIN C, SHELF STABLE",apple juice from concentrate with added vitamin c,9
+"Oat milk, unsweetened, plain, refrigerated",oat milk,14
+"Peppers, bell, green, raw",peppers,11
+"Buttermilk, low fat",buttermilk,1
+"Sesame butter, creamy",sesame butter,12
+"Almond butter, creamy",almond butter,12
+"Flaxseed, ground",flaxseed,12
+"sesame seed butter (tahini), creamy",sesame seed butter (tahini),12
+ground flaxseed meal,ground flaxseed meal,12
+"Raspberries, raw",raspberries,9
+"Blueberries, raw",blueberries,9
+"Grapes, red, seedless, raw",grapes,9
+"Applesauce, unsweetened, with added vitamin C",applesauce,9
+"Cream cheese, full fat, block",cream cheese,1
+"Cream, heavy",cream,1
+"Oats, whole grain, rolled, old fashioned",oats,20
+"Pineapple, raw",pineapple,9
+"Cherries, sweet, dark red, raw",cherries,9
+"Potatoes, russet, without skin, raw",potatoes,11
+"Sweet potatoes, orange flesh, without skin, raw",sweet potatoes,11
+"Celery, raw",celery,11
+"Cucumber, with peel, raw",cucumber,11
+"Cabbage, green, raw",cabbage,11
+heavy cream,heavy cream,1
+"sour cream, full fat",sour cream,1
+"Green beans, raw",green beans,11
+"Buckwheat, whole grain",buckwheat,20
+"Millet, whole grain",millet,20
+"Rice, brown, long grain, unenriched, raw",rice,20
+"amaranth, flour",amaranth,20
+"quinoa, flour",quinoa,20
+"brown rice, long grain, unenriched",brown rice,20
+"white rice, long grain, unenriched",white rice,20
+"sorghum, flour",sorghum,20
+"rye, flour",rye,20
+"barley, flour",barley,20
+cassava flour,cassava flour,11
+"Peanuts, raw",peanuts,16
+"brazil nuts, raw",brazil nuts,12
+"cashews, raw",cashews,12
+"pumpkin seeds (pepitas), raw",pumpkin seeds (pepitas),12
+"hazelnuts, raw",hazelnuts,12
+"macadamia nuts, raw",macadamia nuts,12
+"pistachio nuts, raw",pistachio nuts,12
+"sunflower seed kernels, raw",sunflower seed kernels,12
+coconut flour,coconut flour,12
+chestnut flour,chestnut flour,12
+"Chickpeas, (garbanzo beans, bengal gram), dry",chickpeas,16
+"Lentils, dry",lentils,16
+"Blackeye pea, dry",blackeye pea,16
+"Chickpeas (garbanzo beans, bengal gram), canned, sodium added, drained and rinsed",chickpeas (garbanzo beans,16
+"Peas, green, sweet, canned, sodium added, sugar added, drained and rinsed",peas,11
+"monterey jack cheese, block",monterey jack cheese,1
+"American pasteurized process cheese food, sliced, individually wrapped",american pasteurized process cheese food,1
+"American pasteurized prepared cheese product, with added vitamin D, sliced, individually wrapped",american pasteurized prepared cheese product,1
+"American pasteurized process cheese product, sliced, individually wrapped",american pasteurized process cheese product,1
+"provolone cheese, sliced, non-smoked",provolone cheese,1
+oaxaca ,oaxaca ,1
+fresco (solid),fresco (solid),1
+cotija (solid),cotija (solid),1
+"Crustaceans, shrimp, farm raised, raw",crustaceans,15
+"shrimp, farm raised, raw, tail off, head off, shell removed, not deveined, 31/40 count",shrimp,15
+"salmon, sockeye, wild caught, raw, skin removed",salmon,15
+"tilapia, farm raised, raw, skin removed",tilapia,15
+"cod, Atlantic, wild caught, raw, skin removed",cod,15
+"catfish, farm raised, raw, skin removed",catfish,15
+"crab, blue swimming, lump, pasteurized, refrigerated",crab,15
+"Squash, summer, green, zucchini, includes skin, raw",squash,11
+"Cauliflower, raw",cauliflower,11
+"Collards, raw",collards,11
+"Brussels sprouts, raw",brussels sprouts,11
+"Beets, raw",beets,11
+"Eggplant, raw",eggplant,11
+"Bok choy, regular (not baby), raw",bok choy,11
