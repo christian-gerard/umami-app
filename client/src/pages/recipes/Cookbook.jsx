@@ -64,8 +64,10 @@ function Cookbook() {
       object({
         name: string()
         .required(),
-        amount: number(),
-        measurement_unit: string(),
+        amount: number()
+        .required(),
+        measurement_unit: string()
+        .required(),
       }),
     ),
   });
@@ -133,6 +135,8 @@ function Cookbook() {
   const removeFile = (name) => {
     setFiles(files => files.filter(file => file.name !== name ))
   }
+
+  console.log(formik.errors)
 
 
   useEffect(() => {
@@ -296,7 +300,11 @@ function Cookbook() {
                                 placeholder="Name"
                                 className="border rounded-md p-1 w-[50%]"/>
 
-                                {/* Ingredient Amount */}
+                              {/* {formik.errors.ingredients[index].name && formik.touched.ingredients[index].name && (
+                                <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.ingredients[index].name)}</div>
+                              )} */}
+
+                              {/* Ingredient Amount */}
                               <Field name={`ingredients[${index}].amount`}
                                 placeholder="#"
                                 value={
@@ -407,7 +415,7 @@ function Cookbook() {
 
                 </div>
 
-                {/* Img Upload */}
+                {/* Img Upload Field */}
                 <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="recipe_img">
@@ -458,7 +466,7 @@ function Cookbook() {
 
                 </div>
 
-                {/* Instructions */}
+                {/* Instructions Field */}
                 <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="instructions">
@@ -479,10 +487,6 @@ function Cookbook() {
                   )}
 
                 </div>
-
-
-
-
 
               </div>
 
