@@ -145,7 +145,6 @@ function Cookbook() {
     );
   }, [user]);
 
-  console.log(formik.touched.ingredients)
 
 
   return (
@@ -278,10 +277,12 @@ function Cookbook() {
                           remove(index)
                           const updatedIngredients = [...formik.values.ingredients]
                           updatedIngredients.splice(index, 1)
+                          formik.setTouched(`ingredients[${index}]`, '')
                           formik.setFieldValue('ingredients',updatedIngredients)
 
                         } else if (index === 0) {
                           formik.setFieldValue('ingredients[0]', '')
+                          formik.setTouched('ingredients', '')
                         }
 
                       }
@@ -369,9 +370,13 @@ function Cookbook() {
                     }}
                   </FieldArray>
 
-                  {formik.errors.ingredients && formik.touched.ingredients && (
-                      <div className="text-shittake flex items-center">❌</div>
-                  )}
+                  {formik.errors.ingredients && formik.touched.ingredients &&
+                    formik.touched.ingredients.map((ing, index) => {
+                      Object.values(ing).every(value => value === true) && formik.errors.ingredients[index] && (
+                          <div className="text-shittake flex items-center">❌  {formik.errors.ingredients[index].name}</div>
+                      )
+                    })
+                  }
 
 
 
