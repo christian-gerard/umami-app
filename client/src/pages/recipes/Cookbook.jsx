@@ -14,8 +14,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 function Cookbook() {
-  const nav = useNavigate();
   const { user, updateRecipes } = useContext(UserContext);
+  const nav = useNavigate();
   const [pages, setPages] = useState(1);
   const [recipeForm, setRecipeForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -92,10 +92,11 @@ function Cookbook() {
 
 
 
-      fetch("/recipes", {
+      fetch("/api/v1/recipes", {
         method: "POST",
         body: fd,
-      }).then((res) => {
+      })
+      .then((res) => {
         if (res.ok) {
           return res.json().then((data) => {
             updateRecipes([...user.recipes, data])
@@ -137,12 +138,11 @@ function Cookbook() {
 
 
   return (
-    <div className="p-6 mt-6 ">
-      <div className="flex flex-col flex-grow ">
-        <div className="flex flex-row justify-between">
+    <div className="w-full h-[90%] bg-gray flex flex-col flex-grow px-6 ">
+
+        {/* CookBook Title */}
+        <div className="h-[5%] flex flex-row justify-between">
           <h1 className="text-2xl sm:text-5xl tracking-widest">My Cookbook</h1>
-
-
           <button
             className="text-[1em] flex-nowrap sm:text-lg bg-shittake hover:text-black rounded-lg p-2 text-white "
             onClick={newRecipe}
@@ -151,7 +151,8 @@ function Cookbook() {
           </button>
         </div>
 
-        <div className=" mt-10 rounded-xl text-white flex flex-wrap align-center ">
+        {/* Recipe Cards */}
+        <div className="h-[90%] text-white flex flex-col sm:flex-row flex-wrap align-center overflow-y-scroll flex-nowrap">
           {user ? (
             user.recipes
               .slice(startIndex, endIndex)
@@ -161,7 +162,8 @@ function Cookbook() {
           )}
         </div>
 
-        <div className=" text-xl flex justify-center pb-6 pt-6">
+        {/* Page Nav */}
+        <div className="h-[5%] text-xl flex justify-center">
           <button className="bg-champagne p-1 rounded-lg" onClick={handlePrev}>
             <ArrowBackIcon />
           </button>
@@ -173,8 +175,8 @@ function Cookbook() {
             <ArrowForwardIcon />
           </button>
         </div>
-      </div>
 
+      {/* New Recipe Form */}
       {recipeForm ? (
         <div className="fixed inset-0 flex justify-center items-center transition-colors backdrop-blur">
         <Formik

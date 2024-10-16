@@ -6,7 +6,9 @@ export const UserContext = createContext()
 const UserProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
+
     const login = (user) => setUser(user)
+
     const logout = () => {
           try {
               fetch('/api/v1/logout', { method: 'DELETE' }).then((res) => {
@@ -20,6 +22,7 @@ const UserProvider = ({children}) => {
           } catch (err) {
               throw err
     }}
+
     const removeUserData = () => {
         try {
             fetch('/logout', { method: 'DELETE' }).then((res) => {
@@ -32,7 +35,7 @@ const UserProvider = ({children}) => {
             })
         } catch (err) {
             throw err
-  }}
+    }}
 
     const updateRecipes = (newRecipes) => {
 
@@ -54,7 +57,7 @@ const UserProvider = ({children}) => {
           toast.error('Please log in')
           }
       })
-  }, [])
+    }, [])
 
   return (
 
@@ -64,8 +67,6 @@ const UserProvider = ({children}) => {
 
   )
 
-
 }
-
 
 export default UserProvider

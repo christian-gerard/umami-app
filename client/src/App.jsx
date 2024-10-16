@@ -8,8 +8,9 @@ function App() {
 
   return (
 
-      <main className='h-screen font-cormorant p-6 select-none "'>
+      <main className='h-screen font-cormorant select-none'>
         <Toaster
+          className='bg-shittake'
           position='top-center'
           containerClassName='toaster-style'
           toastOptions={{
@@ -33,12 +34,15 @@ function App() {
                 color: '#71373B',
               },
             },
-
           }}
         />
-        <Nav />
-        <Outlet />
-        <Footer />
+        <div className='h-[90%]'>
+          <Nav />
+          <Outlet />
+        </div>
+        <div className='h-[5%]'>
+          <Footer />
+        </div>
       </main>
 
   );
