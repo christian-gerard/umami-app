@@ -10,12 +10,12 @@ from models.food import Food
 from models.recipe import Recipe
 from models.ingredient import Ingredient
 from models.recipe_img import RecipeImg
-from schemas.user_schema import user_schema, users_schema
 from schemas.cookbook_schema import cookbook_schema, cookbooks_schema
 from schemas.food_schema import food_schema, foods_schema
 from schemas.recipe_schema import recipe_schema, recipes_schema
 from schemas.ingredient_schema import ingredient_schema, ingredients_schema
 from schemas.recipe_img_schema import recipe_img_schema, recipes_img_schema
+from schemas.user_schema import user_schema, users_schema
 import json
 import ipdb
 
@@ -145,7 +145,7 @@ class Recipes(Resource):
             return recipes, 200
         except Exception as e:
             return {"Error": str(e)}, 400
-        
+
 
 
     @login_required
@@ -193,7 +193,7 @@ class Recipes(Resource):
 
 
                     return {"Error": f"{ingredient.name} is not a listed food item"}, 400
-                    
+
 
 
             recipe_img = files['image_file']
@@ -204,8 +204,8 @@ class Recipes(Resource):
                 "recipe_id":recipe.id,
                 "img": recipe_img.read()
             }
-            
-            
+
+
 
             db.session.add(recipe_img_schema.load(new_recipe_img))
 
@@ -213,7 +213,7 @@ class Recipes(Resource):
 
             db.session.commit()
             return recipe_schema.dump(recipe), 201
-            
+
         except Exception as e:
             db.session.rollback()
             return {"Error": str(e)}, 400
@@ -231,7 +231,7 @@ class RecipeById(Resource):
                 return {"Error": "Recipe not found"}, 404
         except Exception as e:
             return {"Error": str(e)}, 400
-            
+
 
     @login_required
     def patch(self,id):
@@ -277,11 +277,11 @@ class RecipeById(Resource):
 
             for ingredient in json.loads(ingredients):
                 if (food_obj := Food.query.filter_by(name=ingredient['name']).first()):
-                    
+
 
                     # does the ingredient exist
-                   
-                        # INSTANTIATE INGEDIENT OBJECT      
+
+                        # INSTANTIATE INGEDIENT OBJECT
                         new_ingredient = {
                             "measurement_unit": ingredient['measurement_unit'],
                             "recipe_id": recipe.id,
@@ -291,10 +291,10 @@ class RecipeById(Resource):
 
                         updated_ingredient = ingredient_schema.load(new_ingredient)
                         db.session.add(updated_ingredient)
-                        
+
                 else:
                     return {"Error": f"{ingredient['name']} is not a valid ingredient"}
-                
+
 
 
 
@@ -312,13 +312,13 @@ class RecipeById(Resource):
                     }
 
                     db.session.add(recipe_img_schema.load(new_recipe_img))
-                
-                
+
+
             db.session.commit()
 
             return recipe_schema.dump(updated_recipe), 200
 
-  
+
 
 
 

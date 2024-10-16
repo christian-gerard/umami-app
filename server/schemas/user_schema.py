@@ -1,5 +1,6 @@
 from . import ma, fields, validate, User, validates, re
 
+
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
@@ -8,11 +9,11 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         exclude = ('_password_hash',)
 
     username = fields.String(
-        required=True, 
+        required=True,
         unique=True,
         validate=[
             validate.Length(
-                min=2, 
+                min=2,
                 max=20,
                 error="Username must be between 2 and 20 characters"
             )

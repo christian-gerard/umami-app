@@ -30,7 +30,7 @@ class Recipe(db.Model, SerializerMixin):
 
     # # # # # Representation
     def __repr__(self):
-        return f""" 
+        return f"""
             <Recipe {self.id}
                 name: {self.name}
                 created_at: {self.created_at}
