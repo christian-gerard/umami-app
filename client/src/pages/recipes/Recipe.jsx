@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import RecipeForm from "../recipes/RecipeForm";
 import Nav from "../../components/Nav";
-import recipeimgHolder from '../../assets/recipeimgholder.png'
 import { useDropzone} from 'react-dropzone'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import AddIcon from '@mui/icons-material/Add';

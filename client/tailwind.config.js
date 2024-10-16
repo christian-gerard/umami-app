@@ -1,17 +1,25 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-    content: [
-      "./src/**/*.{js,jsx,ts,tsx}",
-    ],
-    theme: {
-      colors: {
-        'shittake': '#71373B',
-        'white': '#ffffff',
-        'black': '#000000',
-        'champagne': ' #F7E7CE',
-        'gray': '#D3D3D3'
-      },
-      extend: {},
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+export default {
+  content: [
+    './index.html',
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    colors: {
+      'shittake': '#71373B',
+      'white': '#ffffff',
+      'black': '#000000',
+      'champagne': ' #F7E7CE',
+      'gray': '#D3D3D3'
     },
-    plugins: [],
-  }
+    extend: {
+      fontFamily:{
+        cormorant : ["Cormorant Garamond", ...defaultTheme.fontFamily.serif]
+      },
+    },
+  },
+  plugins: [],
+}
+

@@ -1,18 +1,14 @@
+import './styles.css';
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
-import './styles.css';
-
 
 function App() {
 
-
-
-
   return (
 
-      <main className='h-screen cormorant-garamond p-6 select-none "'>
+      <main className='h-screen font-cormorant p-6 select-none "'>
         <Toaster
           position='top-center'
           containerClassName='toaster-style'
