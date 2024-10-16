@@ -138,42 +138,38 @@ function Cookbook() {
 
 
   return (
-    <div className="w-full h-[90%] bg-gray flex flex-col flex-grow px-6 ">
+    <div className="w-full h-[90%] flex flex-col flex-grow px-6 ">
 
         {/* CookBook Title */}
-        <div className="h-[5%] flex flex-row justify-between">
-          <h1 className="text-2xl sm:text-5xl tracking-widest">My Cookbook</h1>
-          <button
-            className="text-[1em] flex-nowrap sm:text-lg bg-shittake hover:text-black rounded-lg p-2 text-white "
-            onClick={newRecipe}
-          >
+        <div className="h-[5%] flex flex-row justify-between items-center bg-gray">
+          <p className="text-2xl tracking-wide">My Cookbook</p>
+          <button className="h-[80%] w-[30%] rounded-lg bg-shittake text-white" onClick={newRecipe}>
             New Recipe +
           </button>
         </div>
 
         {/* Recipe Cards */}
-        <div className="h-[90%] text-white flex flex-col sm:flex-row flex-wrap align-center overflow-y-scroll flex-nowrap">
+        <div className="h-[90%] flex flex-col gap-3 overflow-y-scroll sm:flex-row sm:overflow-hidden">
           {user ? (
             user.recipes
               .slice(startIndex, endIndex)
               .map((recipe) => <Recipe key={recipe.id} {...recipe} />)
           ) : (
-            <h1>LOADING</h1>
+            <p>LOADING...</p>
           )}
         </div>
 
         {/* Page Nav */}
-        <div className="h-[5%] text-xl flex justify-center">
-          <button className="bg-champagne p-1 rounded-lg" onClick={handlePrev}>
-            <ArrowBackIcon />
-          </button>
-          <div className="text-xl">
-            &nbsp;{currentPage} of {pages}&nbsp;
-          </div>{" "}
-          &nbsp;
-          <button className="bg-champagne p-1 rounded-lg" onClick={handleNext}>
-            <ArrowForwardIcon />
-          </button>
+        <div className="h-[5%] text-xl flex justify-center items-center">
+          <div className='h-[70%] border bg-champagne flex flex-row items-center gap-8 text-xl'>
+            <button className="" onClick={handlePrev}>
+              <ArrowBackIcon />
+            </button>
+              {currentPage} of {pages}
+            <button className="" onClick={handleNext}>
+              <ArrowForwardIcon />
+            </button>
+          </div>
         </div>
 
       {/* New Recipe Form */}

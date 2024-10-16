@@ -36,7 +36,7 @@ function App() {
             },
           }}
         />
-        <div className='h-[90%]'>
+        <div className='h-[95%]'>
           <Nav />
           <Outlet />
         </div>

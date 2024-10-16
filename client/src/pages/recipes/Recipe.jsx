@@ -150,12 +150,14 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
   const removeFile = (name) => {
     setFiles(files => files.filter(file => file.name !== name ))
   }
+  console.log(user.recipes)
 
   return (
-    <div className='flex justify-center'>
+    <>
 
       {route.id ?
 
+        // Recipe Page
         <div>
           <div className='bg-champagne p-6 m-2 rounded-lg flex flex-col m-6'>
             <div className='flex justify-between mb-8'>
@@ -576,33 +578,25 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
         :
 
+        // Recipe Card
         <NavLink to={`/recipes/${id}`}>
-          <div className="p-2 bg-champagne flex flex-col md:flex-row text-black m-4 justify-between rounded-lg w-[200px] md:w-[450px] md:h-[250px] border">
-            <div className='flex justify-between flex-col'>
-              <div className="flex flex-row justify-between">
-                <p className="text-2xl font-bold">{name}</p>
-              </div>
-              <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Category:</b>{category ? category[0].toUpperCase() : ""}{category ? category.substring(1) : ""}</p>
-              <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Source:</b>{source ? source[0].toUpperCase() : ""}{source ? source.substring(1) : ""}</p>
-              <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Prep Time:</b>{prep_time ? prep_time[0].toUpperCase() : ""}{prep_time ? prep_time.substring(1) : ""}</p>
-              {ingredients ? (
-                <>
-                  <p className='text-sm md:text-lg'><b className='text-sm md:text-lg tracking-wide mr-2'>Ingredients:</b> {ingredients ? ingredients.length : ""}</p>
-
-                </>
-              ) : (
-                <>
-                  <h1 className='text-sm md:text-lg text-black'>No Recipes</h1>
-                </>
-              )}
+          <div className="border bg-champagne rounded-lg p-2 flex flex-row">
+            <div className='w-[75%] text-md overflow-hidden'>
+              <p className="text-2xl pb-[0.25px]">{name ? name : ""}</p>
+              <p className=''>Category: {category ? category[0].toUpperCase() : ""}{category ? category.substring(1) : "None"}</p>
+              <p className=''>Source: {source ? source[0].toUpperCase() : ""}{source ? source.substring(1) : "None"}</p>
+              <p className=''>Prep Time: {prep_time ? prep_time[0].toUpperCase() : ""}{prep_time ? prep_time.substring(1) : "None"}</p>
+              <p className=''>Ingredients: {ingredients && ingredients.length !== 0 ? ingredients.length : "None"}</p>
             </div>
-            <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '../public/umami.png' } alt='recipeimagedetails' className='w-[80px] h-[80px] md:w-[120px] md:h-[120px] border rounded-2xl'/>
+            <div className='w-[25%] flex justify-center items-center'>
+              <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '../public/umami.png' } alt='recipeimagedetails' className='w-[80px] h-[80px] md:w-[120px] md:h-[120px] border rounded-2xl'/>
+            </div>
           </div>
         </NavLink>
 
       }
 
-    </div>
+    </>
   )
 }
 
