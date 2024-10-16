@@ -1,7 +1,27 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ command }) => {
+  if (command === 'serve') {
+    // Development mode: enable proxy
+    return {
+      server: {
+        proxy: {
+          '/api/v1': 'http://localhost:5555',
+        },
+      },
+      build: {
+        outDir: 'dist',
+      },
+      plugins: [react()],
+    }
+  } else {
+    // Production mode: no proxy
+    return {
+      build: {
+        outDir: 'dist',
+      },
+      plugins: [react()],
+    }
+  }
 })
