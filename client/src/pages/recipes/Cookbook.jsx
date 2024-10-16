@@ -136,8 +136,6 @@ function Cookbook() {
     setFiles(files => files.filter(file => file.name !== name ))
   }
 
-  console.log(formik.errors)
-
 
   useEffect(() => {
     user ? (
@@ -146,6 +144,8 @@ function Cookbook() {
       <h1>Loading</h1>
     );
   }, [user]);
+
+  console.log(formik.touched.ingredients)
 
 
   return (
@@ -280,6 +280,8 @@ function Cookbook() {
                           updatedIngredients.splice(index, 1)
                           formik.setFieldValue('ingredients',updatedIngredients)
 
+                        } else if (index === 0) {
+                          formik.setFieldValue('ingredients[0]', '')
                         }
 
                       }
@@ -287,7 +289,12 @@ function Cookbook() {
                       return (
                         <>
                           {ingredients.map((ingredient, index) => (
-                            <div key={index} className="flex flex-row w-full gap-2">
+                            <div key={index} className="flex flex-row w-full gap-1 text-sm">
+
+                              {/* Ingredient Number */}
+                              <div className='w-[3%] h-full text-black flex justify-center items-start'>
+                                <p className='text-xl flex items-center'>{index >= 0 ? index + 1 : ''}</p>
+                              </div>
 
                               {/* Ingredient Name */}
                               <Field name={`ingredients[${index}].name`}
@@ -297,22 +304,25 @@ function Cookbook() {
                                     : ""
                                 }
                                 onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                                 placeholder="Name"
                                 className="border rounded-md p-1 w-[50%]"/>
 
-                              {/* {formik.errors.ingredients[index].name && formik.touched.ingredients[index].name && (
-                                <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.ingredients[index].name)}</div>
-                              )} */}
 
                               {/* Ingredient Amount */}
                               <Field name={`ingredients[${index}].amount`}
                                 placeholder="#"
+                                type='number'
                                 value={
                                   formik.values.ingredients[index]
                                     ? formik.values.ingredients[index].amount
                                     : ""
                                 }
+                                onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
+                                step='1000'
+                                min="1000"
+                                max="100000000"
                                 className="border rounded-md p-1 w-[10%]"/>
 
                               {/* Ingredient Measurement */}
@@ -324,9 +334,10 @@ function Cookbook() {
                                     ? formik.values.ingredients[index].measurement_unit
                                     : ""
                                 }
+                                onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
                                 className="border rounded-md p-1 w-[25%]">
-                                  <option value=''>Measur.</option>
+                                  <option className='text-gray italic' value=''>Measur.</option>
                                   <option value='pint'>Pint</option>
                                   <option value='quart'>Quart</option>
                                   <option value='cups'>Cup</option>
@@ -338,7 +349,7 @@ function Cookbook() {
                               </Field>
 
                               {/* Add + Delete Buttons */}
-                              <div className='w-[15%] flex flex-row justify-between '>
+                              <div className={`w-[14%] flex flex-row`}>
                                 {/* Remove Ingredient */}
                                 <button type="button" onClick={() => handleDeleteIngredient(index)} className="text-black rounded-lg">
                                   <RemoveIcon />
@@ -357,6 +368,12 @@ function Cookbook() {
                       );
                     }}
                   </FieldArray>
+
+                  {formik.errors.ingredients && formik.touched.ingredients && (
+                      <div className="text-shittake flex items-center">❌</div>
+                  )}
+
+
 
                 </div>
 
