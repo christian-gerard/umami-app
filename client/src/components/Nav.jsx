@@ -24,17 +24,16 @@ function Nav () {
                                 <NavLink id='link' to='/' className='hover:text-champagne' onClick={logout} > Logout </NavLink>
                     </div>
                 </div>
-                {viewMenu ?
+                {viewMenu && (
+
                     <div className='sm:hidden flex flex-col bg-shittake text-white z-10 gap-4 italic tracking-widest pl-6 pb-2 rounded-b-lg'>
                             <NavLink id='link' to='/cookbook' className='hover:text-champagne' > Cookbook </NavLink>
                             <NavLink id='link' to='/findrecipes' className='hover:text-champagne' > AI Recipes </NavLink>
                             <NavLink id='link' to='/profile' className='hover:text-champagne'  > Profile </NavLink>
                             <NavLink id='link' to='/' className='hover:text-champagne' onClick={logout} > Logout </NavLink>
                     </div>
-                    :
-                    <>
-                    </>
-                }
+
+                )}
                 </>
             :
             <>
