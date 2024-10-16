@@ -1,8 +1,12 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import {  RouterProvider } from 'react-router-dom'
+import ReactDOM from 'react-dom/client';
+import router from './utils/routes'
+import UserProvider from './context/UserContext';
 
-createRoot(document.getElementById('root')).render(
-    <App />
-)
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+    <UserProvider>
+        <RouterProvider router={router} />
+    </UserProvider>
+);

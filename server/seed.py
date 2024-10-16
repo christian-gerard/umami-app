@@ -1,4 +1,3 @@
-import csv
 import random
 from faker import Faker
 from config import app
@@ -14,15 +13,6 @@ import random
 from rich import print
 import ipdb
 
-foundation_foods = 'data/foundation_foods.csv'
-
-def seed_foods(csv_file):
-    with open(csv_file, 'r', newline='', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-        data = [Food(**row) for row in reader]
-        db.session.add_all(data)
-        db.session.commit()
-    
 fake = Faker()
 
 with app.app_context():
@@ -41,6 +31,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Cleaning Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print(f'\t[red]Cleaning Failed[/red] {str(e)} 😞\n')
         sys.exit(1)
 
@@ -49,18 +40,18 @@ with app.app_context():
     try:
         users = []
         test_user = User(
-                username='test', 
-                email='test@gmail.com', 
-                role=1 
+                username='test',
+                email='test@gmail.com',
+                role=1
                 )
         test_user.password_hash = 'Password1!'
         users.append(test_user)
 
         for _ in range(10):
             user = User(
-                username=fake.first_name(), 
-                email=fake.email(), 
-                role=1 
+                username=fake.first_name(),
+                email=fake.email(),
+                role=1
                 )
             user.password_hash = 'Password1!'
             users.append(user)
@@ -68,6 +59,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Users Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]User Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -75,9 +67,9 @@ with app.app_context():
     # # # # # Generate Food
     print('[purple]Generating Food 🍱[/purple]  ...\n')
     try:
-        seed_foods(foundation_foods)
-        print('\t[green]Food Complete[/green] ✅\n')
+        print('\t[green]Food Data Not Seeded[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Food Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -93,6 +85,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Recipes Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Recipe Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -107,6 +100,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Cookbooks Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Cookbooks Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -121,5 +115,6 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Ingredients Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Ingredients Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
