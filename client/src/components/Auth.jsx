@@ -49,7 +49,7 @@ function Auth() {
   const { login } = useContext(UserContext);
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
-  const requestUrl = isLogin ? "/login" : "/signup";
+  const requestUrl = isLogin ? "/api/v1/login" : "/api/v1/signup";
   const formik = useFormik({
     initialValues,
     validationSchema: isLogin ? loginSchema : signupSchema,

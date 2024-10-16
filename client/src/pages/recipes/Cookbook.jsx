@@ -22,14 +22,7 @@ function Cookbook() {
   const startIndex = (currentPage - 1) * 10;
   const endIndex = currentPage * 10;
   const [files, setFiles] = useState([]);
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    accept: 'image/*',
-    onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
-    }
-  });
+  const {getRootProps, getInputProps} = useDropzone();
 
   const handlePrev = () => {
     if (currentPage > 1) {

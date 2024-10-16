@@ -25,14 +25,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
   const [currentRecipe, setCurrentRecipe] = useState({});
   const nav = useNavigate();
   const [files, setFiles] = useState([]);
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    accept: 'image/*',
-    onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
-    }
-  });
+  const {getRootProps, getInputProps} = useDropzone();
 
   const handleEdit = () => {
     setEditMode(!editMode);
@@ -594,13 +587,13 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                   <div className="flex flex-row justify-between">
                     <p className="text-2xl font-bold">{name}</p>
                   </div>
-                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Category:</b>{category[0].toUpperCase()}{category.substring(1)}</p>
-                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Source:</b>{source[0].toUpperCase()}{source.substring(1)}</p>
-                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Prep Time:</b>{prep_time[0].toUpperCase()}{prep_time.substring(1)}</p>
+                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Category:</b>{category ? category[0].toUpperCase() : ""}{category ? category.substring(1) : ""}</p>
+                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Source:</b>{source ? source[0].toUpperCase() : ""}{source ? source.substring(1) : ""}</p>
+                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Prep Time:</b>{prep_time ? prep_time[0].toUpperCase() : ""}{prep_time ? prep_time.substring(1) : ""}</p>
 
                   {ingredients ? (
                     <>
-                      <p className='text-sm md:text-lg'><b className='text-sm md:text-lg tracking-wide mr-2'>Ingredients:</b> {ingredients.length}</p>
+                      <p className='text-sm md:text-lg'><b className='text-sm md:text-lg tracking-wide mr-2'>Ingredients:</b> {ingredients ? ingredients.length : ""}</p>
 
                     </>
                   ) : (
@@ -612,7 +605,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                 </div>
 
 
-                  <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : recipeimgHolder } alt='recipeimagedetails' className='w-[80px] h-[80px] md:w-[120px] md:h-[120px] border rounded-2xl'/>
+                  <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '' } alt='recipeimagedetails' className='w-[80px] h-[80px] md:w-[120px] md:h-[120px] border rounded-2xl'/>
 
 
 

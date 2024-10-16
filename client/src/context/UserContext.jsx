@@ -9,7 +9,7 @@ const UserProvider = ({children}) => {
     const login = (user) => setUser(user)
     const logout = () => {
           try {
-              fetch('/logout', { method: 'DELETE' }).then((res) => {
+              fetch('/api/v1/logout', { method: 'DELETE' }).then((res) => {
                   if (res.status === 204) {
                       setUser(null)
                       toast.success('Logged Out')
@@ -45,7 +45,7 @@ const UserProvider = ({children}) => {
     }
 
     useEffect(() => {
-      fetch('/me')
+      fetch('/api/v1/me')
       .then(resp => {
           if (resp.ok) {
           resp.json().then(setUser)
