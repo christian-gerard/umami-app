@@ -6,10 +6,12 @@ export const UserContext = createContext()
 const UserProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
+
     const login = (user) => setUser(user)
+
     const logout = () => {
           try {
-              fetch('/logout', { method: 'DELETE' }).then((res) => {
+              fetch('/api/v1/logout', { method: 'DELETE' }).then((res) => {
                   if (res.status === 204) {
                       setUser(null)
                       toast.success('Logged Out')
@@ -20,6 +22,7 @@ const UserProvider = ({children}) => {
           } catch (err) {
               throw err
     }}
+
     const removeUserData = () => {
         try {
             fetch('/logout', { method: 'DELETE' }).then((res) => {
@@ -32,7 +35,7 @@ const UserProvider = ({children}) => {
             })
         } catch (err) {
             throw err
-  }}
+    }}
 
     const updateRecipes = (newRecipes) => {
 
@@ -45,7 +48,7 @@ const UserProvider = ({children}) => {
     }
 
     useEffect(() => {
-      fetch('/me')
+      fetch('/api/v1/me')
       .then(resp => {
           if (resp.ok) {
           resp.json().then(setUser)
@@ -54,7 +57,7 @@ const UserProvider = ({children}) => {
           toast.error('Please log in')
           }
       })
-  }, [])
+    }, [])
 
   return (
 
@@ -64,8 +67,6 @@ const UserProvider = ({children}) => {
 
   )
 
-
 }
-
 
 export default UserProvider

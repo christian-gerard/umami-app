@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import RecipeForm from "../recipes/RecipeForm";
 import Nav from "../../components/Nav";
-import recipeimgHolder from '../../assets/recipeimgholder.png'
 import { useDropzone} from 'react-dropzone'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import AddIcon from '@mui/icons-material/Add';
@@ -20,20 +19,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function Recipe({ id, name, steps, ingredients, category, prep_time, source, recipe_img, cookbooks }) {
+
   const { user, updateRecipes } = useContext(UserContext);
+
   const route = useParams();
+  const nav = useNavigate();
+  const {getRootProps, getInputProps} = useDropzone();
+
   const [editMode, setEditMode] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
-  const nav = useNavigate();
   const [files, setFiles] = useState([]);
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
-    accept: 'image/*',
-    onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
-    }
-  });
 
   const handleEdit = () => {
     setEditMode(!editMode);
@@ -157,18 +152,14 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
   }
 
   return (
-    <div className='flex justify-center'>
-      {route.id ? (
+    <>
 
+      {route.id ?
 
-
+        // Recipe Page
         <div>
-
-
           <div className='bg-champagne p-6 m-2 rounded-lg flex flex-col m-6'>
-
             <div className='flex justify-between mb-8'>
-
               <button
                   className=" border rounded-lg p-2 m-2 text-black w-[75px]"
                   onClick={ () => nav('/cookbook')}
@@ -583,46 +574,29 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
             <></>
           )}
         </div>
-      ) : (
 
+        :
 
+        // Recipe Card
+        <NavLink to={`/recipes/${id}`}>
+          <div className="border bg-champagne rounded-lg p-2 flex flex-row">
+            <div className='w-[75%] text-md overflow-hidden'>
+              <p className="text-2xl pb-[0.25px]">{name ? name : ""}</p>
+              <p className=''>Category: {category ? category[0].toUpperCase() : ""}{category ? category.substring(1) : "None"}</p>
+              <p className=''>Source: {source ? source[0].toUpperCase() : ""}{source ? source.substring(1) : "None"}</p>
+              <p className=''>Prep Time: {prep_time ? prep_time[0].toUpperCase() : ""}{prep_time ? prep_time.substring(1) : "None"}</p>
+              <p className=''>Ingredients: {ingredients && ingredients.length !== 0 ? ingredients.length : "None"}</p>
+            </div>
+            <div className='w-[25%] flex justify-center items-center'>
+              <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '../public/umami.png' } alt='recipeimagedetails' className='w-[80px] h-[80px] md:w-[120px] md:h-[120px] border rounded-2xl'/>
+            </div>
+          </div>
+        </NavLink>
 
+      }
 
-            <NavLink to={`/recipes/${id}`}>
-              <div className="p-2 bg-champagne flex flex-col md:flex-row text-black m-4 justify-between rounded-lg w-[200px] md:w-[450px] md:h-[250px] border">
-
-                <div className='flex justify-between flex-col'>
-                  <div className="flex flex-row justify-between">
-                    <p className="text-2xl font-bold">{name}</p>
-                  </div>
-                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Category:</b>{category[0].toUpperCase()}{category.substring(1)}</p>
-                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Source:</b>{source[0].toUpperCase()}{source.substring(1)}</p>
-                  <p className='text-lg'><b className='text-sm md:text-lg  tracking-wide mr-2'> Prep Time:</b>{prep_time[0].toUpperCase()}{prep_time.substring(1)}</p>
-
-                  {ingredients ? (
-                    <>
-                      <p className='text-sm md:text-lg'><b className='text-sm md:text-lg tracking-wide mr-2'>Ingredients:</b> {ingredients.length}</p>
-
-                    </>
-                  ) : (
-                    <>
-                      <h1 className='text-sm md:text-lg text-black'>No Recipes</h1>
-                    </>
-                  )}
-
-                </div>
-
-
-                  <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : recipeimgHolder } alt='recipeimagedetails' className='w-[80px] h-[80px] md:w-[120px] md:h-[120px] border rounded-2xl'/>
-
-
-
-              </div>
-            </NavLink>
-
-      )}
-    </div>
-  );
+    </>
+  )
 }
 
 export default Recipe;

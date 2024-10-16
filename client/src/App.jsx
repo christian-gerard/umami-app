@@ -1,19 +1,16 @@
+import './styles.css';
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
-import './styles.css';
-
 
 function App() {
 
-
-
-
   return (
 
-      <main className='h-screen cormorant-garamond p-6 select-none "'>
+      <main className='h-screen font-cormorant select-none'>
         <Toaster
+          className='bg-shittake'
           position='top-center'
           containerClassName='toaster-style'
           toastOptions={{
@@ -37,12 +34,15 @@ function App() {
                 color: '#71373B',
               },
             },
-
           }}
         />
-        <Nav />
-        <Outlet />
-        <Footer />
+        <div className='h-[95%]'>
+          <Nav />
+          <Outlet />
+        </div>
+        <div className='h-[5%]'>
+          <Footer />
+        </div>
       </main>
 
   );
