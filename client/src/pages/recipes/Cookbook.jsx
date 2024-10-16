@@ -138,7 +138,7 @@ function Cookbook() {
 
 
   return (
-    <div className="w-full h-[90%] flex flex-col flex-grow px-6 ">
+    <div className="w-full h-[92%] flex flex-col flex-grow px-6 ">
 
         {/* CookBook Title */}
         <div className="h-[5%] flex flex-row justify-between items-center bg-gray">
