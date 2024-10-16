@@ -31,6 +31,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Cleaning Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print(f'\t[red]Cleaning Failed[/red] {str(e)} 😞\n')
         sys.exit(1)
 
@@ -58,6 +59,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Users Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]User Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -67,6 +69,7 @@ with app.app_context():
     try:
         print('\t[green]Food Data Not Seeded[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Food Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -82,6 +85,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Recipes Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Recipe Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -96,6 +100,7 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Cookbooks Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Cookbooks Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
@@ -110,5 +115,6 @@ with app.app_context():
         db.session.commit()
         print('\t[green]Ingredients Complete[/green] ✅\n')
     except Exception as e:
+        db.session.rollback()
         print('\t[red]Ingredients Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)

@@ -318,18 +318,6 @@ class RecipeById(Resource):
 
             return recipe_schema.dump(updated_recipe), 200
 
-
-
-
-
-
-
-
-
-
-
-
-
         except Exception as e:
             return {"Error": str(e)}, 400
 
