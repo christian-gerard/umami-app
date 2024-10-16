@@ -2,7 +2,7 @@ import Recipe from "./Recipe";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
-import { useFormik, Field, FieldArray, Formik } from "formik";
+import { useFormik, Field, FieldArray, Formik, Form } from "formik";
 import toast from "react-hot-toast";
 import { object, string, array, number } from "yup";
 import { useDropzone} from 'react-dropzone'
@@ -11,6 +11,13 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CloseIcon from '@mui/icons-material/Close';
+
+function titleCase(str) {
+  return str.toLowerCase().split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
 
 
 function Cookbook() {
@@ -37,6 +44,7 @@ function Cookbook() {
   };
 
   const newRecipe = () => {
+    formik.resetForm()
     setRecipeForm(!recipeForm);
   };
 
@@ -91,29 +99,28 @@ function Cookbook() {
       for(let key in formData) { fd.set(key, formData[key])}
 
 
+      // fetch("/api/v1/recipes", {
+      //   method: "POST",
+      //   body: fd,
+      // })
+      // .then((res) => {
+      //   if (res.ok) {
+      //     return res.json().then((data) => {
+      //       updateRecipes([...user.recipes, data])
+      //       newRecipe();
+      //       nav("/cookbook");
+      //       toast.success("Recipe Created");
+      //     });
+      //   } else {
 
-      fetch("/api/v1/recipes", {
-        method: "POST",
-        body: fd,
-      })
-      .then((res) => {
-        if (res.ok) {
-          return res.json().then((data) => {
-            updateRecipes([...user.recipes, data])
-            newRecipe();
-            nav("/cookbook");
-            toast.success("Recipe Created");
-          });
-        } else {
-
-          return res.json().then((data) => {
+      //     return res.json().then((data) => {
 
 
-            const message = data.Error
-            toast.error(message)
-          })
-        }
-      });
+      //       const message = data.Error
+      //       toast.error(message)
+      //     })
+      //   }
+      // });
 
 
 
@@ -141,9 +148,9 @@ function Cookbook() {
     <div className="w-full h-[92%] flex flex-col flex-grow px-6 ">
 
         {/* CookBook Title */}
-        <div className="h-[5%] flex flex-row justify-between items-center bg-gray">
+        <div className="h-[5%] flex flex-row justify-between items-center">
           <p className="text-2xl tracking-wide">My Cookbook</p>
-          <button className="h-[80%] w-[30%] rounded-lg bg-shittake text-white" onClick={newRecipe}>
+          <button className="h-[80%] w-[30%] rounded-lg bg-shittake text-white sm:w-[200px]" onClick={newRecipe}>
             New Recipe +
           </button>
         </div>
@@ -173,255 +180,249 @@ function Cookbook() {
         </div>
 
       {/* New Recipe Form */}
-      {recipeForm ? (
+      {recipeForm && (
         <div className="fixed inset-0 flex justify-center items-center transition-colors backdrop-blur">
-        <Formik
-          onSubmit={formik.handleSubmit}
-          initialValues={initialValues}
-          className=""
-        >
-          <form
-            onSubmit={formik.handleSubmit}
-            className="bg-white border border-shittake rounded-lg p-2"
-          >
-            <button
-              className="bg-shittake text-white rounded-xl mb-6 flex justify-center w-full "
-              type="button"
-              onClick={newRecipe}
-            >
-              X
-            </button>
+          <Formik onSubmit={formik.handleSubmit} initialValues={initialValues}>
+            <Form className="size-[95%] text-md flex flex-col justify-center items-center">
 
-            <div className='flex flex-row'>
+              {/* Form Exit */}
+              <div className='h-[4%] w-full flex items-start'>
+                <button className="bg-champagne text-black rounded-xl flex justify-center w-full " type="button" onClick={newRecipe}>
+                  <CloseIcon style={{size: '50px'}}/>
+                </button>
+              </div>
 
-              <div className="flex flex-col mr-3">
-                <div className='flex flex-row'>
+              {/* Form Fields */}
+              <div className='h-[92%] w-full bg-white rounded-lg p-2 border border-shittake flex flex-col gap-2 overflow-y-scroll text-base'>
+
+                {/* Name Field */}
+                <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="name">
                     Name
                   </label>
 
-                  {formik.errors.name && formik.touched.name && (
-                    <div className="text-shittake pr-2 pl-2 cormorant-garamond-bold"> **{formik.errors.name.toUpperCase()}</div>
-                  )}
+
+                  <input
+                    type="text"
+                    name="name"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
+                    className="border rounded-md p-1"
+                    placeholder="Name your recipe"
+                    />
+
+                    {formik.errors.name && formik.touched.name && (
+                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.name)}</div>
+                    )}
 
                 </div>
-                <input
-                  type="text"
-                  name="name"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.name}
-                  className="border p-1 m-1 rounded-lg"
-                  placeholder="Recipe Name"
-                />
 
-                <div className='flex flex-row'>
+                {/* Category Field */}
+                <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="category">
                     Category
                   </label>
 
-                  {formik.errors.category && formik.touched.category && (
-                    <div className="text-shittake pr-2 pl-2 cormorant-garamond-bold"> **{formik.errors.category.toUpperCase()}</div>
-                  )}
-
-                </div>
-
-                <select
+                  <select
                   as='select'
                   name="category"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.category}
-                  className="border p-1 m-1 rounded-lg"
+                  className="border rounded-md p-1"
                   placeholder="Category"
-                >
-                  <option value='' className='bold italic'>Select Category</option>
-                  <option value='breakfast'>Breakfast</option>
-                  <option value='lunch'>Lunch</option>
-                  <option value='dinner'>Dinner</option>
-                  <option value='snack'>Snack</option>
-                  <option value='dessert'>Dessert</option>
-                </select>
+                  >
+                    <option value='' className='bold italic'>Select Category</option>
+                    <option value='breakfast'>Breakfast</option>
+                    <option value='lunch'>Lunch</option>
+                    <option value='dinner'>Dinner</option>
+                    <option value='snack'>Snack</option>
+                    <option value='dessert'>Dessert</option>
+                  </select>
 
-                <div className='flex flex-row'>
+
+                  {formik.errors.category && formik.touched.category && (
+                    <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.category)}</div>
+                  )}
+
+                </div>
+
+                {/* Ingredients Field */}
+                <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="ingredients">
                     Ingredients
                   </label>
 
-                </div>
+                  <FieldArray name="ingredients" validateOnChange={true}>
+                    {(fieldArrayProps) => {
+                      const { push, remove, form } = fieldArrayProps;
+                      const { values } = form;
+                      const ingredients = values.ingredients || [];
 
-                <FieldArray name="ingredients" validateOnChange={true}>
-                  {(fieldArrayProps) => {
-                    const { push, remove, form } = fieldArrayProps;
-                    const { values } = form;
-                    const ingredients = values.ingredients || [];
+                      const handleAddIngredient = () => {
+                        push({ name: "", amount: "", measurement_unit: "" });
+                      };
 
-                    const handleAddIngredient = () => {
-                      push({ name: "", amount: "", measurement_unit: "" });
-                    };
+                      const handleDeleteIngredient = (index) => {
 
-                    const handleDeleteIngredient = (index) => {
+                        if (index !== 0) {
 
-                      if (index !== 0) {
+                          remove(index)
+                          const updatedIngredients = [...formik.values.ingredients]
+                          updatedIngredients.splice(index, 1)
+                          formik.setFieldValue('ingredients',updatedIngredients)
 
-                        remove(index)
-                        const updatedIngredients = [...formik.values.ingredients]
-                        updatedIngredients.splice(index, 1)
-                        formik.setFieldValue('ingredients',updatedIngredients)
+                        }
 
                       }
 
-                    }
+                      return (
+                        <>
+                          {ingredients.map((ingredient, index) => (
+                            <div key={index} className="flex flex-row w-full gap-2">
 
-                    return (
-                      <div>
-                        {ingredients.map((ingredient, index) => (
-                          <div key={index} className="text-black">
-                            <Field
-                              name={`ingredients[${index}].name`}
-                              value={
-                                formik.values.ingredients[index]
-                                  ? formik.values.ingredients[index].name
-                                  : ""
-                              }
-                              onChange={formik.handleChange}
-                              placeholder="Name"
-                              className="m-1 p-1 border rounded-lg w-[250px]"
-                            />
+                              {/* Ingredient Name */}
+                              <Field name={`ingredients[${index}].name`}
+                                value={
+                                  formik.values.ingredients[index]
+                                    ? formik.values.ingredients[index].name
+                                    : ""
+                                }
+                                onChange={formik.handleChange}
+                                placeholder="Name"
+                                className="border rounded-md p-1 w-[50%]"/>
 
-                            <Field
-                              name={`ingredients[${index}].amount`}
-                              placeholder="#"
-                              value={
-                                formik.values.ingredients[index]
-                                  ? formik.values.ingredients[index].amount
-                                  : ""
-                              }
-                              onChange={formik.handleChange}
-                              className="m-1 p-1 border rounded-lg w-[40px]"
-                            />
-                            <Field
-                              as='select'
-                              name={`ingredients[${index}].measurement_unit`}
-                              placeholder="Unit"
-                              value={
-                                formik.values.ingredients[index]
-                                  ? formik.values.ingredients[index].measurement_unit
-                                  : ""
-                              }
-                              onChange={formik.handleChange}
-                              className="m-1 p-1 border rounded-lg w-[120px]"
-                            >
-                              <option value=''>Measur.</option>
-                              <option value='pint'>Pint</option>
-                              <option value='quart'>Quart</option>
-                              <option value='cups'>Cup</option>
-                              <option value='oz'>Ounce</option>
-                              <option value='fl oz'>Fluid Ounce</option>
-                              <option value='tbsp'>Tablespoon</option>
-                              <option value='tsp'>Teaspoon</option>
+                                {/* Ingredient Amount */}
+                              <Field name={`ingredients[${index}].amount`}
+                                placeholder="#"
+                                value={
+                                  formik.values.ingredients[index]
+                                    ? formik.values.ingredients[index].amount
+                                    : ""
+                                }
+                                onChange={formik.handleChange}
+                                className="border rounded-md p-1 w-[10%]"/>
 
-                            </Field>
+                              {/* Ingredient Measurement */}
+                              <Field as='select'
+                                name={`ingredients[${index}].measurement_unit`}
+                                placeholder="Unit"
+                                value={
+                                  formik.values.ingredients[index]
+                                    ? formik.values.ingredients[index].measurement_unit
+                                    : ""
+                                }
+                                onChange={formik.handleChange}
+                                className="border rounded-md p-1 w-[25%]">
+                                  <option value=''>Measur.</option>
+                                  <option value='pint'>Pint</option>
+                                  <option value='quart'>Quart</option>
+                                  <option value='cups'>Cup</option>
+                                  <option value='oz'>Ounce</option>
+                                  <option value='fl oz'>Fluid Ounce</option>
+                                  <option value='tbsp'>Tablespoon</option>
+                                  <option value='tsp'>Teaspoon</option>
 
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteIngredient(index)}
-                              className="p-1 m-1 w-[30px] bg-champagne text-black rounded-lg"
-                            >
-                              <RemoveIcon />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={handleAddIngredient}
-                              className="p-1 m-1 w-[30px] bg-champagne text-black rounded-lg"
-                            >
-                              <AddIcon />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    );
-                  }}
-                </FieldArray>
-              </div>
+                              </Field>
 
-              <div className="flex flex-col  align-top ml-3">
+                              {/* Add + Delete Buttons */}
+                              <div className='w-[15%] flex flex-row justify-between '>
+                                {/* Remove Ingredient */}
+                                <button type="button" onClick={() => handleDeleteIngredient(index)} className="text-black rounded-lg">
+                                  <RemoveIcon />
+                                </button>
 
-              <div className='flex flex-row'>
+                                {/* Add Ingredient */}
+                                <button type="button" onClick={handleAddIngredient} className="text-black rounded-lg">
+                                  <AddIcon />
+                                </button>
+                              </div>
 
-                <label htmlFor="prep_time">
-                  Prep Time
-                </label>
 
-                {formik.errors.prep_time && formik.touched.prep_time && (
-                  <div className="text-shittake pr-2 pl-2 cormorant-garamond-bold"> **{formik.errors.prep_time.toUpperCase()}</div>
-                )}
+                            </div>
+                          ))}
+                        </>
+                      );
+                    }}
+                  </FieldArray>
 
-              </div>
+                </div>
 
-                <select
-                  as='select'
-                  name="prep_time"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.prep_time}
-                  className="border p-1 m-1 rounded-lg"
-                  placeholder="Prep time"
-                >
-                  <option value=''>Select Prep Time</option>
-                  <option value='10 min'>  less than 5 min</option>
-                  <option value='10 min'>  5 - 10 min</option>
-                  <option value='10 min'>  10 - 20 min</option>
-                  <option value='10 min'>  20 - 30 min</option>
-                  <option value='10 min'>  20 - 30 min</option>
-                </select>
+                {/* Prep Time Field */}
+                <div className='flex flex-col gap-[4px]'>
 
-                <div className='flex flex-row'>
+                  <label htmlFor="prep_time">
+                    Prep Time
+                  </label>
+
+                  <select
+                    as='select'
+                    name="prep_time"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.prep_time}
+                    className="border rounded-md p-1"
+                    placeholder="Prep time"
+                  >
+                    <option value=''>Select Prep Time</option>
+                    <option value='10 min'>  less than 5 min</option>
+                    <option value='10 min'>  5 - 10 min</option>
+                    <option value='10 min'>  10 - 20 min</option>
+                    <option value='10 min'>  20 - 30 min</option>
+                    <option value='10 min'>  20 - 30 min</option>
+                  </select>
+
+                  {formik.errors.prep_time && formik.touched.prep_time && (
+                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.prep_time)}</div>
+                  )}
+
+
+
+                </div>
+
+                {/* Source Field */}
+                <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="source">
                     Source
                   </label>
 
+                  <input
+                    type="text"
+                    name="source"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.source}
+                    className="border rounded-md p-1"
+                    placeholder="Enter Source"
+                  />
                   {formik.errors.source && formik.touched.source && (
-                    <div className="text-shittake pr-2 pl-2 cormorant-garamond-bold"> **{formik.errors.source.toUpperCase()}</div>
+                  <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.source)}</div>
                   )}
 
+
                 </div>
-                <input
-                  type="text"
-                  name="source"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.source}
-                  className="border p-1 m-1 rounded-lg"
-                  placeholder="Where did you find this recipe?"
-                />
 
-
-                <div className='flex flex-row'>
+                {/* Img Upload */}
+                <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="recipe_img">
                     Recipe Image
                   </label>
 
-                  {formik.errors.source && formik.touched.source && (
-                    <div className="text-shittake pr-2 pl-2 cormorant-garamond-bold"> **{formik.errors.source.toUpperCase()}</div>
-                  )}
+                  <div  {...getRootProps({className: 'dropzone'})}>
+                    <input {...getInputProps()} />
+                    <p className='bg-shittake border text-white p-2 rounded-lg'>
 
-                </div>
+                      <UploadFileIcon />
+                      Drag or Click Here
 
-                <div  {...getRootProps({className: 'dropzone'})}>
-                  <input {...getInputProps()} />
-                  <p className='bg-shittake border text-white p-2 rounded-lg'>
-
-                    <UploadFileIcon />
-                    Drag or Click Here
-
-                    </p>
-                </div>
+                      </p>
+                  </div>
 
                   {files[0] ?
                   <div className='flex flex-row justify-between bg-champagne p-2 m-2 rounded-lg '>
@@ -452,30 +453,32 @@ function Cookbook() {
 
                   </div>
                   :
-                  <h1>No file Uploaded</h1>}
+                  <p className='pl-2'>No Img Uploaded</p>
+                  }
 
+                </div>
 
-                <div className='flex flex-row'>
+                {/* Instructions */}
+                <div className='flex flex-col gap-[4px]'>
 
                   <label htmlFor="instructions">
                     Instructions
                   </label>
+                  <textarea
+                    name="steps"
+                    as='textarea'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.steps}
+                    className="border rounded-md p-1 min-h-[150px]"
+                    placeholder="Write instructions here..."
+                  />
 
                   {formik.errors.steps && formik.touched.steps && (
-                    <div className="text-shittake pr-2 pl-2 cormorant-garamond-bold"> **{formik.errors.steps.toUpperCase()}</div>
+                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.steps)}</div>
                   )}
 
                 </div>
-
-                <textarea
-                  name="steps"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.steps}
-                  className="resize-none border rounded-lg overflow-y-auto w-[600px] h-[200px] m-1 p-1"
-                  placeholder="Instructions for recipe (include any helpful tips as well!)"
-                />
-
 
 
 
@@ -483,17 +486,17 @@ function Cookbook() {
 
               </div>
 
-            </div>
+              {/* Form Submit */}
+              <div className='h-[4%] w-full flex items-end'>
+                <button type ='submit' className="text-lg bg-champagne text-black hover:bg-transparent rounded-lg w-full">
+                  Add Recipe
+                </button>
+              </div>
 
-            <button type ='submit' className="text-lg bg-shittake text-white hover:bg-transparent rounded-lg w-full mt-6">
-              Add Recipe
-            </button>
 
-          </form>
-        </Formik>
+            </Form>
+          </Formik>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

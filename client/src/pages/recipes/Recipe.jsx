@@ -150,7 +150,6 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
   const removeFile = (name) => {
     setFiles(files => files.filter(file => file.name !== name ))
   }
-  console.log(user.recipes)
 
   return (
     <>
