@@ -130,15 +130,15 @@ class Recipes(Resource):
                 db.session.add(ingredient_obj)
             db.session.commit()
 
-            recipe_img = files['image_file']
-            new_recipe_img = {
-                "name": recipe_img.name,
-                "mimetype": recipe_img.headers[1][1],
-                "recipe_id":recipe.id,
-                "img": recipe_img.read()
-            }
-            db.session.add(recipe_img_schema.load(new_recipe_img))
-            db.session.commit()
+            if recipe_img := files['image_file']:
+                new_recipe_img = {
+                    "name": recipe_img.name,
+                    "mimetype": recipe_img.headers[1][1],
+                    "recipe_id":recipe.id,
+                    "img": recipe_img.read()
+                }
+                db.session.add(recipe_img_schema.load(new_recipe_img))
+                db.session.commit()
             return recipe_schema.dump(recipe), 201
 
         except Exception as e:
