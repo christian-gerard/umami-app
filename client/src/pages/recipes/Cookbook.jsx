@@ -1,8 +1,9 @@
 import Recipe from "./Recipe";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useFormik, Field, FieldArray, Formik, Form } from "formik";
+import Dropzone from 'react-dropzone'
 import toast from "react-hot-toast";
 import { object, string, array, number } from "yup";
 import { useDropzone} from 'react-dropzone'
@@ -13,11 +14,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
 
-function titleCase(str) {
-  return str.toLowerCase().split(' ').map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(' ');
-}
 
 
 function Cookbook() {
@@ -29,7 +25,8 @@ function Cookbook() {
   const startIndex = (currentPage - 1) * 10;
   const endIndex = currentPage * 10;
   const [files, setFiles] = useState([]);
-  const {getRootProps, getInputProps} = useDropzone();
+
+
 
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -44,30 +41,33 @@ function Cookbook() {
   };
 
   const newRecipe = () => {
+
     formik.resetForm()
+    setFiles('')
     setRecipeForm(!recipeForm);
   };
 
   const recipeSchema = object({
     name: string()
-    .required(),
+    .required('Name is required'),
     steps: string()
-    .required(),
+    .max(40000, 'Instructions are too long')
+    .required('Instructions is required'),
     source: string()
-    .required(),
+    .required('Source is required'),
     category: string()
-    .required()
+    .required('Category is required')
     .oneOf(['breakfast', 'lunch', 'dinner', 'snack', 'dessert']),
     prep_time: string()
-    .required(),
+    .required('Prep Time is required'),
     ingredients: array().of(
       object({
         name: string()
-        .required(),
-        amount: number()
-        .required(),
+        .required('Name is required'),
+        amount: number('Must be a number')
+        .required('Amount is required'),
         measurement_unit: string()
-        .required(),
+        .required('Unit is required'),
       }),
     ),
   });
@@ -91,6 +91,7 @@ function Cookbook() {
     initialValues,
     validationSchema: recipeSchema,
     onSubmit: (formData) => {
+      console.log(formData)
 
       formData['ingredients'] = JSON.stringify(formData['ingredients'])
 
@@ -100,29 +101,29 @@ function Cookbook() {
 
       for(let key in formData) { fd.set(key, formData[key])}
 
+      console.log(fd)
+      fetch("/api/v1/recipes", {
+        method: "POST",
+        body: fd,
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json().then((data) => {
+            updateRecipes([...user.recipes, data])
+            newRecipe();
+            nav("/cookbook");
+            toast.success("Recipe Created");
+          });
+        } else {
 
-      // fetch("/api/v1/recipes", {
-      //   method: "POST",
-      //   body: fd,
-      // })
-      // .then((res) => {
-      //   if (res.ok) {
-      //     return res.json().then((data) => {
-      //       updateRecipes([...user.recipes, data])
-      //       newRecipe();
-      //       nav("/cookbook");
-      //       toast.success("Recipe Created");
-      //     });
-      //   } else {
-
-      //     return res.json().then((data) => {
+          return res.json().then((data) => {
 
 
-      //       const message = data.Error
-      //       toast.error(message)
-      //     })
-      //   }
-      // });
+            const message = data.Error
+            toast.error(message)
+          })
+        }
+      });
 
 
 
@@ -159,7 +160,7 @@ function Cookbook() {
         </div>
 
         {/* Recipe Cards */}
-        <div className="h-[90%] flex flex-col gap-3 overflow-y-scroll sm:flex-row sm:overflow-hidden">
+        <div className="h-[90%] flex flex-col gap-3 overflow-y-scroll sm:flex-row sm:overflow-y-scroll flex-wrap">
           {user ? (
             user.recipes
               .slice(startIndex, endIndex)
@@ -217,7 +218,7 @@ function Cookbook() {
                     />
 
                     {formik.errors.name && formik.touched.name && (
-                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.name)}</div>
+                      <div className="text-shittake flex items-center">❌  {formik.errors.name}</div>
                     )}
 
                 </div>
@@ -239,16 +240,16 @@ function Cookbook() {
                   placeholder="Category"
                   >
                     <option value='' className='bold italic'>Select Category</option>
-                    <option value='breakfast'>Breakfast</option>
-                    <option value='lunch'>Lunch</option>
-                    <option value='dinner'>Dinner</option>
-                    <option value='snack'>Snack</option>
-                    <option value='dessert'>Dessert</option>
+                    <option value='breakfast'>🥣 Breakfast</option>
+                    <option value='lunch'>🥪 Lunch</option>
+                    <option value='dinner'>🍽️ Dinner</option>
+                    <option value='snack'>🍎 Snack</option>
+                    <option value='dessert'>🍦 Dessert</option>
                   </select>
 
 
                   {formik.errors.category && formik.touched.category && (
-                    <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.category)}</div>
+                    <div className="text-shittake flex items-center">❌  {formik.errors.category}</div>
                   )}
 
                 </div>
@@ -277,12 +278,10 @@ function Cookbook() {
                           remove(index)
                           const updatedIngredients = [...formik.values.ingredients]
                           updatedIngredients.splice(index, 1)
-                          formik.setTouched(`ingredients[${index}]`, '')
                           formik.setFieldValue('ingredients',updatedIngredients)
 
                         } else if (index === 0) {
-                          formik.setFieldValue('ingredients[0]', '')
-                          formik.setTouched('ingredients', '')
+                          formik.setFieldValue('ingredients[0]', { name: "", amount: "", measurement_unit: "" })
                         }
 
                       }
@@ -290,10 +289,10 @@ function Cookbook() {
                       return (
                         <>
                           {ingredients.map((ingredient, index) => (
-                            <div key={index} className="flex flex-row w-full gap-1 text-sm">
+                            <div key={index} className="flex flex-row w-full gap-1 text-sm sm:text-base">
 
                               {/* Ingredient Number */}
-                              <div className='w-[3%] h-full text-black flex justify-center items-start'>
+                              <div className='w-[3%] sm:w-[5%] h-full text-black flex justify-center items-start'>
                                 <p className='text-xl flex items-center'>{index >= 0 ? index + 1 : ''}</p>
                               </div>
 
@@ -307,7 +306,7 @@ function Cookbook() {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 placeholder="Name"
-                                className="border rounded-md p-1 w-[50%]"/>
+                                className="border rounded-md p-1 w-[50%] sm:w-[50%]"/>
 
 
                               {/* Ingredient Amount */}
@@ -321,9 +320,9 @@ function Cookbook() {
                                 }
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
-                                step='1000'
-                                min="1000"
-                                max="100000000"
+                                step='1'
+                                min="1"
+                                max="10000"
                                 className="border rounded-md p-1 w-[10%]"/>
 
                               {/* Ingredient Measurement */}
@@ -337,7 +336,7 @@ function Cookbook() {
                                 }
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
-                                className="border rounded-md p-1 w-[25%]">
+                                className="border rounded-md p-1 w-[25%] sm:w-[30%]">
                                   <option className='text-gray italic' value=''>Measur.</option>
                                   <option value='pint'>Pint</option>
                                   <option value='quart'>Quart</option>
@@ -350,7 +349,7 @@ function Cookbook() {
                               </Field>
 
                               {/* Add + Delete Buttons */}
-                              <div className={`w-[14%] flex flex-row`}>
+                              <div className={`w-[14%] sm:w-[7%] flex flex-row`}>
                                 {/* Remove Ingredient */}
                                 <button type="button" onClick={() => handleDeleteIngredient(index)} className="text-black rounded-lg">
                                   <RemoveIcon />
@@ -370,12 +369,27 @@ function Cookbook() {
                     }}
                   </FieldArray>
 
-                  {formik.errors.ingredients && formik.touched.ingredients &&
+
+                  {formik.errors.ingredients && formik.touched.ingredients ? (
+
                     formik.touched.ingredients.map((ing, index) => {
-                      Object.values(ing).every(value => value === true) && formik.errors.ingredients[index] && (
-                          <div className="text-shittake flex items-center">❌  {formik.errors.ingredients[index].name}</div>
-                      )
+                      if(Object.values(ing).every(value => value === true) && formik.errors.ingredients[index]) {
+                        const errors = formik.errors.ingredients[index]
+                        return Object.entries(errors).map(err =>
+                          <div className="text-shittake flex gap-1 flex items-end text-base">
+                            <p>❌</p>
+                            <p className='text-xl'>{index + 1}:</p>
+                            <p>{err[1]}</p>
+                          </div>
+                        )
+
+                      }
+
                     })
+
+                  )
+                  :
+                  <></>
                   }
 
 
@@ -399,15 +413,15 @@ function Cookbook() {
                     placeholder="Prep time"
                   >
                     <option value=''>Select Prep Time</option>
-                    <option value='10 min'>  less than 5 min</option>
-                    <option value='10 min'>  5 - 10 min</option>
-                    <option value='10 min'>  10 - 20 min</option>
-                    <option value='10 min'>  20 - 30 min</option>
-                    <option value='10 min'>  20 - 30 min</option>
+                    <option value='>5min'>🏃🏻💨 {'>'}5 min</option>
+                    <option value='5-30 min'>⚡️ 5-30 min</option>
+                    <option value='30-60 min'>⏲️ 30-60 min</option>
+                    <option value='1-3 hr'>👩🏽‍🍳 1-3 hr</option>
+                    <option value='All Day'>📆 All Day</option>
                   </select>
 
                   {formik.errors.prep_time && formik.touched.prep_time && (
-                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.prep_time)}</div>
+                      <div className="text-shittake flex items-center">❌  {formik.errors.prep_time}</div>
                   )}
 
 
@@ -431,7 +445,7 @@ function Cookbook() {
                     placeholder="Enter Source"
                   />
                   {formik.errors.source && formik.touched.source && (
-                  <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.source)}</div>
+                  <div className="text-shittake flex items-center">❌  {formik.errors.source}</div>
                   )}
 
 
@@ -444,26 +458,37 @@ function Cookbook() {
                     Recipe Image
                   </label>
 
-                  <div  {...getRootProps({className: 'dropzone'})}>
-                    <input {...getInputProps()} />
-                    <p className='bg-shittake border text-white p-2 rounded-lg'>
+                  <Dropzone onDrop={acceptedFiles => {
+                    setFiles(acceptedFiles.map(file => Object.assign(file, {
+                      preview: URL.createObjectURL(file)
+                    })));}
+                  }>
+                    {({getRootProps, getInputProps}) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p className='bg-shittake border text-white p-2 rounded-lg'>
 
-                      <UploadFileIcon />
-                      Drag or Click Here
+                            <UploadFileIcon />
+                            Drag or Click Here
 
-                      </p>
-                  </div>
+                          </p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+
 
                   {files[0] ?
                   <div className='flex flex-row justify-between bg-champagne p-2 m-2 rounded-lg '>
 
-                    <div clasName='flex flex-row'>
+                    <div className='flex flex-row'>
                       <img alt='img_preview' src={files[0].preview} className='h-[50px] w-[50px]' />
 
                       <div className='flex flex-col'>
-
                         <p>{files[0].name}</p>
-                        <p>{files[0].size}</p>
+                        <p className='flex items-center text-sm'>{Math.round(files[0].size / 1024)} KB</p>
+
 
                       </div>
 
@@ -505,7 +530,7 @@ function Cookbook() {
                   />
 
                   {formik.errors.steps && formik.touched.steps && (
-                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.steps)}</div>
+                      <div className="text-shittake flex items-center">❌  {formik.errors.steps}</div>
                   )}
 
                 </div>
@@ -514,7 +539,7 @@ function Cookbook() {
 
               {/* Form Submit */}
               <div className='h-[4%] w-full flex items-end'>
-                <button type ='submit' className="text-lg bg-champagne text-black hover:bg-transparent rounded-lg w-full">
+                <button type ='submit' className="text-lg bg-champagne border border-black text-black hover:bg-transparent rounded-lg w-full">
                   Add Recipe
                 </button>
               </div>

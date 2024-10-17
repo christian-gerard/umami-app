@@ -4,9 +4,8 @@ from config import app
 from models.__init__ import db
 from models.user import User
 from models.recipe import Recipe
-from models.cookbook import Cookbook
 from models.ingredient import Ingredient
-from models.food import Food
+
 
 import sys
 import random
@@ -24,10 +23,8 @@ with app.app_context():
     # print('[purple]Cleaning Database 🧽 [/purple]...\n')
     try:
         User.query.delete()
-        Cookbook.query.delete()
         Recipe.query.delete()
         Ingredient.query.delete()
-        Food.query.delete()
         db.session.commit()
         print('\t[green]Cleaning Complete[/green] ✅\n')
     except Exception as e:
@@ -64,22 +61,12 @@ with app.app_context():
         sys.exit(1)
 
 
-    # # # # # Generate Food
-    print('[purple]Generating Food 🍱[/purple]  ...\n')
-    try:
-        print('\t[green]Food Data Not Seeded[/green] ✅\n')
-    except Exception as e:
-        db.session.rollback()
-        print('\t[red]Food Generation Failed[/red] 😞\n' + str(e))
-        sys.exit(1)
-
-
     # # # # # Generate Recipes
     print('[purple]Generating Recipes 📖[/purple]  ...\n')
     try:
         recipes = []
         for _ in range(10):
-            recipe = Recipe(name=fake.word(), steps='StepsTestFORTENCHAR', user_id=random.randint(1,3) )
+            recipe = Recipe(name=fake.word(), user_id=random.randint(1,3) )
             recipes.append(recipe)
         db.session.add_all(recipes)
         db.session.commit()
@@ -89,27 +76,13 @@ with app.app_context():
         print('\t[red]Recipe Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
 
-    # # # # # Generate Cookbooks
-    print('[purple]Generating Cookbooks 📚[/purple]  ...\n')
-    try:
-        cookbooks = []
-        for _ in range(5):
-            cookbook = Cookbook(name=fake.word(), user_id=random.randint(1,3), recipe_id=random.randint(1,5) )
-            cookbooks.append(cookbook)
-        db.session.add_all(cookbooks)
-        db.session.commit()
-        print('\t[green]Cookbooks Complete[/green] ✅\n')
-    except Exception as e:
-        db.session.rollback()
-        print('\t[red]Cookbooks Generation Failed[/red] 😞\n' + str(e))
-        sys.exit(1)
 
     # # # # # Generate Ingredients
     print('[purple]Generating Ingredients 🥕[/purple]  ...\n')
     try:
         ingredients = []
         for _ in range(3):
-            ingredient = Ingredient(amount=10, measurement_unit='cups', food_id=random.randint(1,3), recipe_id=random.randint(1,2) )
+            ingredient = Ingredient(name=fake.word(), amount=10, measurement_unit='cups', recipe_id=random.randint(1,2) )
             ingredients.append(ingredient)
         db.session.add_all(ingredients)
         db.session.commit()

@@ -7,19 +7,19 @@ class IngredientSchema(ma.SQLAlchemyAutoSchema):
         ordered = True
         partial = ('id',)
 
-    
+    name = fields.String(
+        require=True
+    )
     amount = fields.Integer()
 
     measurement_unit = fields.String(
-        require=True, 
+        require=True,
         validate=validate.OneOf(choices=['cups', 'fl oz', 'liters', 'pint', 'quart', 'oz', 'lbs', 'tbsp', 'tsp', 'serving']
             )
     )
 
-    food_id = fields.Integer(required=True)
     recipe_id = fields.Integer(required=True)
 
-    food = fields.Nested('FoodSchema')
     recipe = fields.Nested('RecipeSchema')
 
 ingredient_schema = IngredientSchema()

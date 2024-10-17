@@ -16,17 +16,14 @@ class Recipe(db.Model, SerializerMixin):
     source = db.Column(db.String())
     prep_time = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, onupdate=datetime.now())
 
     # # # # # Relationship
     user = db.relationship('User', back_populates='recipes')
-    cookbooks = db.relationship('Cookbook', back_populates='recipe', cascade='all, delete-orphan')
     ingredients = db.relationship('Ingredient', back_populates='recipe', cascade='all, delete-orphan')
     recipe_img = db.relationship('RecipeImg',uselist=False, back_populates='recipe', cascade='all, delete-orphan' )
 
     # # # # # Serialize
-    serialize_rules=('-user','-cookbooks')
+    serialize_rules=('-user')
 
     # # # # # Representation
     def __repr__(self):

@@ -41,17 +41,9 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
 
-
-
     recipes = fields.Nested(
         "RecipeSchema",
         exclude=('user',),
-        many=True
-    )
-
-    cookbooks = fields.Nested(
-        "CookbookSchema",
-        exclude=('user', 'recipe'),
         many=True
     )
 
