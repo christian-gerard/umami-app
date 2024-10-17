@@ -195,7 +195,7 @@ function Cookbook() {
               </div>
 
               {/* Form Fields */}
-              <div className='h-[92%] w-full bg-white rounded-lg p-2 border border-shittake flex flex-col gap-2 overflow-y-scroll text-base'>
+              <div className='h-[92%] w-full bg-white sm:bg-gray rounded-lg p-2 border border-shittake flex flex-col gap-2 overflow-y-scroll text-base'>
 
                 {/* Name Field */}
                 <div className='flex flex-col gap-[4px]'>
@@ -238,11 +238,11 @@ function Cookbook() {
                   placeholder="Category"
                   >
                     <option value='' className='bold italic'>Select Category</option>
-                    <option value='breakfast'>Breakfast</option>
-                    <option value='lunch'>Lunch</option>
-                    <option value='dinner'>Dinner</option>
-                    <option value='snack'>Snack</option>
-                    <option value='dessert'>Dessert</option>
+                    <option value='breakfast'>🥣 Breakfast</option>
+                    <option value='lunch'>🥪 Lunch</option>
+                    <option value='dinner'>🍽️ Dinner</option>
+                    <option value='snack'>🍎 Snack</option>
+                    <option value='dessert'>🍦 Dessert</option>
                   </select>
 
 
@@ -318,9 +318,9 @@ function Cookbook() {
                                 }
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
-                                step='1000'
-                                min="1000"
-                                max="100000000"
+                                step='1'
+                                min="1"
+                                max="10000"
                                 className="border rounded-md p-1 w-[10%]"/>
 
                               {/* Ingredient Measurement */}
@@ -411,11 +411,11 @@ function Cookbook() {
                     placeholder="Prep time"
                   >
                     <option value=''>Select Prep Time</option>
-                    <option value='10 min'>  less than 5 min</option>
-                    <option value='10 min'>  5 - 10 min</option>
-                    <option value='10 min'>  10 - 20 min</option>
-                    <option value='10 min'>  20 - 30 min</option>
-                    <option value='10 min'>  20 - 30 min</option>
+                    <option value='>5min'>🏃🏻💨 {'>'}5 min</option>
+                    <option value='5-30 min'>⚡️ 5-30 min</option>
+                    <option value='30-60 min'>⏲️ 30-60 min</option>
+                    <option value='1-3 hr'>👩🏽‍🍳 1-3 hr</option>
+                    <option value='All Day'>📆 All Day</option>
                   </select>
 
                   {formik.errors.prep_time && formik.touched.prep_time && (
