@@ -168,12 +168,12 @@ class RecipeById(Resource):
             img = request.files
             ingredients = data.get('ingredients')
             recipe = Recipe.query.filter(Recipe.id == id).first()
-            current_recipe_image = RecipeImg.query.filter_by(recipe_id=recipe.id).first()
+
 
             # PATCH RECIPE
             new_recipe = {
                 "name" : data.get("name"),
-                "steps" : data.get("steps"),
+                "instructions" : data.get("instructions"),
                 "category": data.get("category"),
                 "source": data.get("source"),
                 "prep_time": data.get("prep_time"),
@@ -186,57 +186,40 @@ class RecipeById(Resource):
             else:
                 return {"ERROR": str(e)}, 400
 
-
-
-            #PATCH INGREDIENTS
-            # Init all existing ingredients
             current_ingredients = Ingredient.query.filter_by(recipe_id=recipe.id).all()
-            # delete old ingredients
 
-            for i in current_ingredients:
-                db.session.delete(i)
+            for ing in current_ingredients:
+                db.session.delete(ing)
 
             db.session.commit()
 
 
             for ingredient in json.loads(ingredients):
-                if (food_obj := Food.query.filter_by(name=ingredient['name']).first()):
 
+                new_ingredient = {
+                    "name": ingredient['name'],
+                    "measurement_unit": ingredient['measurement_unit'],
+                    "amount": ingredient['amount'],
+                    "recipe_id": recipe.id
+                }
 
-                    # does the ingredient exist
-
-                        # INSTANTIATE INGEDIENT OBJECT
-                        new_ingredient = {
-                            "measurement_unit": ingredient['measurement_unit'],
-                            "recipe_id": recipe.id,
-                            "food_id": food_obj.id,
-                            "amount": ingredient['amount']
-                        }
-
-                        updated_ingredient = ingredient_schema.load(new_ingredient)
-                        db.session.add(updated_ingredient)
-
-                else:
-                    return {"Error": f"{ingredient['name']} is not a valid ingredient"}
+                updated_ingredient = ingredient_schema.load(new_ingredient)
+                db.session.add(updated_ingredient)
 
 
 
-
-                if current_recipe_image:
+            if len(img) != 0:
+                if current_recipe_image := RecipeImg.query.filter_by(recipe_id=recipe.id).first():
                     db.session.delete(current_recipe_image)
-
-                if len(img) > 0:
-                    file = img['image_file']
-
-                    new_recipe_img = {
-                        "name": file.name,
-                        "mimetype": file.headers[1][1],
-                        "recipe_id":recipe.id,
-                        "img": file.read()
-                    }
-
-                    db.session.add(recipe_img_schema.load(new_recipe_img))
-
+                recipe_img = img['image_file']
+                new_recipe_img = {
+                    "name": recipe_img.name,
+                    "mimetype": recipe_img.headers[1][1],
+                    "recipe_id":recipe.id,
+                    "img": recipe_img.read()
+                }
+                db.session.add(recipe_img_schema.load(new_recipe_img))
+                db.session.commit()
 
             db.session.commit()
 

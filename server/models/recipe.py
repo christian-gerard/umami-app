@@ -10,10 +10,10 @@ class Recipe(db.Model, SerializerMixin):
 
     # # # # # Attribute
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(20))
-    instructions = db.Column(db.String())
+    name = db.Column(db.String(50))
+    instructions = db.Column(db.String(2000))
     category = db.Column(db.String())
-    source = db.Column(db.String())
+    source = db.Column(db.String(50))
     prep_time = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
@@ -38,5 +38,18 @@ class Recipe(db.Model, SerializerMixin):
     @validates('name')
     def validate_name(self, key, name):
         assert name, "Name must be provided"
-        assert len(name) < 51, "Name must not be over 50 characters "
         return name
+
+    @validates('prep_time')
+    def validate_name(self, key, prep_time):
+        times = ('>5min', '5-30 min', '30-60 min', '1-3 hr', 'All Day')
+        assert prep_time, "Prep Time must be provided"
+        assert prep_time in times, "Must match approved times"
+        return prep_time
+
+    @validates('category')
+    def validate_name(self, key, category):
+        categories = ('Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert')
+        assert category, "Category must be provided"
+        assert category in categories, "Must match approved categories"
+        return category

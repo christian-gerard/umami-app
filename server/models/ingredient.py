@@ -10,7 +10,7 @@ class Ingredient(db.Model, SerializerMixin):
 
     # # # # # Attribute
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String, nullable = False)
+    name = db.Column(db.String(50), nullable = False)
     amount = db.Column(db.Integer, nullable=False)
     measurement_unit = db.Column(db.String)
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'))
@@ -37,6 +37,6 @@ class Ingredient(db.Model, SerializerMixin):
 
     @validates('measurement_unit')
     def validate_measurement(self, key, measurement_unit):
-        units = ('cups', 'fl oz', 'liters', 'pint', 'quart', 'oz', 'lbs', 'tbsp', 'tsp', 'serving')
+        units = ('tsp', 'tbsp', 'cups', 'pt', 'qt', 'gal', 'oz', 'fl oz', 'lb', 'unit')
         assert measurement_unit in units, "Must match approved units"
         return measurement_unit
