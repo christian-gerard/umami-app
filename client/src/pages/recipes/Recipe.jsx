@@ -33,11 +33,8 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
   const [files, setFiles] = useState([]);
 
   const handleEdit = () => {
+    setFiles('')
     setEditMode(!editMode);
-  };
-
-  const handleAddIngredient = () => {
-    push({ name: "", amount: "", measurement_unit: "" });
   };
 
   const handleDelete = () => {
@@ -57,7 +54,10 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
           nav("/cookbook");
           toast.success("Deleted");
         } else {
-          return res.json().then((errorObj) => toast.error(errorObj.message));
+          return res.json().then((errorObj) => {
+            console.log(errorObj)
+            toast.error("Error")
+          });
         }
       })
       .catch((error) => console.error("Error:", error));
@@ -118,13 +118,12 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
       for(let key in formData) { fd.set(key, formData[key])}
 
-      fetch(`/recipes/${currentRecipe.id}`, {
+      fetch(`/api/v1/recipes/${currentRecipe.id}`, {
         method: "PATCH",
         body: fd,
       }).then((res) => {
         if (res.ok) {
           return res.json().then((data) => {
-            console.log(data)
             const updatedRecipes = user.recipes.map((recipe) => recipe.id === currentRecipe.id ? data : recipe)
             updateRecipes(updatedRecipes)
             handleEdit()
@@ -145,6 +144,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
             .json()
             .then((data) => {
               setCurrentRecipe(data);
+
               formik.setValues({
                 name: data.name,
                 instructions: data.instructions,
@@ -157,6 +157,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                   measurement_unit: ingredient.measurement_unit
                 }))
               });
+
             })
         } else if (res.status === 422) {
           toast.error("Invalid Login");
@@ -356,23 +357,14 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
                       <FieldArray name="ingredients" validateOnChange={true}>
                         {(fieldArrayProps) => {
-                          const { push, remove, form } = fieldArrayProps;
-                          const { values } = form;
-                          const ingredients = values.ingredients || [];
+                          const ingredients = formik.values.ingredients || [];
 
                           const handleAddIngredient = () => {
-                            push({ name: "", amount: "", measurement_unit: "" });
+                            formik.setFieldValue('ingredients', [...ingredients, { name: "", amount: "", measurement_unit: "" }]);
                           };
 
-                          for (let i = 0; i < currentRecipe.ingredients.length; i++) {
-                            handleAddIngredient()
-                          }
-
                           const handleDeleteIngredient = (index) => {
-
                             if (index !== 0) {
-
-                              remove(index)
                               const updatedIngredients = [...formik.values.ingredients]
                               updatedIngredients.splice(index, 1)
                               formik.setFieldValue('ingredients',updatedIngredients)
@@ -385,36 +377,29 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
                           return (
                             <>
-                              {ingredients.map((ingredient, index) => (
+                              {ingredients.map((ingredient, index) => {
+
+                                return (
                                 <div key={index} className="flex flex-row w-full gap-1 text-sm sm:text-base">
 
                                   {/* Ingredient Number */}
                                   <div className='w-[3%] sm:w-[5%] h-full text-black flex justify-center items-start'>
-                                    <p className='text-xl flex items-center'>{index >= 0 ? index + 1 : ''}</p>
+                                    <p className='text-xl flex items-center'>{index + 1}</p>
                                   </div>
 
                                   {/* Ingredient Name */}
                                   <Field name={`ingredients[${index}].name`}
-                                    value={
-                                      formik.values.ingredients[index]
-                                        ? formik.values.ingredients[index].name
-                                        : ""
-                                    }
+                                    value={formik.values.ingredients[index].name}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     placeholder="Name"
                                     className="border rounded-md p-1 w-[50%] sm:w-[50%]"/>
 
-
                                   {/* Ingredient Amount */}
                                   <Field name={`ingredients[${index}].amount`}
+                                    value={formik.values.ingredients[index].amount}
                                     placeholder="#"
                                     type='number'
-                                    value={
-                                      formik.values.ingredients[index]
-                                        ? formik.values.ingredients[index].amount
-                                        : ""
-                                    }
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}
                                     step='1'
@@ -425,12 +410,8 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                                   {/* Ingredient Measurement */}
                                   <Field as='select'
                                     name={`ingredients[${index}].measurement_unit`}
+                                    value={formik.values.ingredients[index].measurement_unit}
                                     placeholder="Unit"
-                                    value={
-                                      formik.values.ingredients[index]
-                                        ? formik.values.ingredients[index].measurement_unit
-                                        : ""
-                                    }
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}
                                     className="border rounded-md p-1 w-[25%] sm:w-[30%]">
@@ -463,7 +444,9 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
 
                                 </div>
-                              ))}
+                              ) }
+
+                            )}
                             </>
                           );
                         }}
