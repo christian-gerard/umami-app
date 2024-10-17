@@ -41,7 +41,9 @@ function Cookbook() {
   };
 
   const newRecipe = () => {
+
     formik.resetForm()
+    setFiles('')
     setRecipeForm(!recipeForm);
   };
 
@@ -49,7 +51,6 @@ function Cookbook() {
     name: string()
     .required('Name is required'),
     steps: string()
-    .min(10, 'Must be at least 10 characters long')
     .max(40000, 'Instructions are too long')
     .required('Instructions is required'),
     source: string()
@@ -159,7 +160,7 @@ function Cookbook() {
         </div>
 
         {/* Recipe Cards */}
-        <div className="h-[90%] flex flex-col gap-3 overflow-y-scroll sm:flex-row sm:overflow-hidden">
+        <div className="h-[90%] flex flex-col gap-3 overflow-y-scroll sm:flex-row sm:overflow-y-scroll flex-wrap">
           {user ? (
             user.recipes
               .slice(startIndex, endIndex)

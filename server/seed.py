@@ -61,7 +61,6 @@ with app.app_context():
         sys.exit(1)
 
 
-
     # # # # # Generate Recipes
     print('[purple]Generating Recipes 📖[/purple]  ...\n')
     try:
@@ -76,6 +75,7 @@ with app.app_context():
         db.session.rollback()
         print('\t[red]Recipe Generation Failed[/red] 😞\n' + str(e))
         sys.exit(1)
+
 
     # # # # # Generate Ingredients
     print('[purple]Generating Ingredients 🥕[/purple]  ...\n')

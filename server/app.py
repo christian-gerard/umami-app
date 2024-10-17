@@ -118,7 +118,6 @@ class Recipes(Resource):
             db.session.add(recipe)
             db.session.commit()
 
-
             ingredients = data.get('ingredients')
             for ingredient in json.loads(ingredients):
                 new_ingredient = {

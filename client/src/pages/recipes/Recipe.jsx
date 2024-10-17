@@ -578,17 +578,17 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
         :
 
         // Recipe Card
-        <NavLink to={`/recipes/${id}`}>
-          <div className="border bg-champagne rounded-lg p-2 flex flex-row">
-            <div className='w-[75%] text-md overflow-hidden'>
+        <NavLink to={`/recipes/${id}`} className='sm:w-[300px] sm:h-[150px]'>
+          <div className=" border bg-champagne rounded-lg p-2 flex flex-row">
+            <div className='w-[60%] text-md overflow-hidden'>
               <p className="text-2xl pb-[0.25px]">{name ? name : ""}</p>
               <p className=''>Category: {category ? category[0].toUpperCase() : ""}{category ? category.substring(1) : "None"}</p>
               <p className=''>Source: {source ? source[0].toUpperCase() : ""}{source ? source.substring(1) : "None"}</p>
               <p className=''>Prep Time: {prep_time ? prep_time[0].toUpperCase() : ""}{prep_time ? prep_time.substring(1) : "None"}</p>
               <p className=''>Ingredients: {ingredients && ingredients.length !== 0 ? ingredients.length : "None"}</p>
             </div>
-            <div className='w-[25%] flex justify-center items-center'>
-              <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '../public/umami.png' } alt='recipeimagedetails' className='w-[80px] h-[80px] md:w-[120px] md:h-[120px] border rounded-2xl'/>
+            <div className='w-[40%] flex justify-center items-center'>
+              <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '../public/umami.png' } alt='recipeimagedetails' className='w-[80px] h-[80px] sm:w-[120px] sm:h-[120px] border rounded-2xl'/>
             </div>
           </div>
         </NavLink>
