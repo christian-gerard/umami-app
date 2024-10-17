@@ -33,10 +33,12 @@ function Nav () {
                                     <CloseIcon  onClick={handleMenu} style={{width: '40px', height: '40px'}}/>
                                 </div>
                                 <div className='h-[80%] pl-2 flex flex-col gap-4 text-2xl'>
-                                    <NavLink id='link' to='/cookbook' className='hover:text-champagne' > Cookbook </NavLink>
-                                    <NavLink id='link' to='/findrecipes' className='hover:text-champagne' > AI Recipes </NavLink>
-                                    <NavLink id='link' to='/profile' className='hover:text-champagne'  > Profile </NavLink>
-                                    <NavLink id='link' to='/' className='hover:text-champagne' onClick={logout} > Logout </NavLink>
+                                    <NavLink id='link' to='/cookbook' onClick={handleMenu} className='hover:text-champagne' > Cookbook </NavLink>
+                                    <NavLink id='link' to='/findrecipes' onClick={handleMenu} className='hover:text-champagne' > AI Recipes </NavLink>
+                                    <NavLink id='link' to='/profile' onClick={handleMenu} className='hover:text-champagne'  > Profile </NavLink>
+                                    <NavLink id='link' to='/' className='hover:text-champagne' onClick={() => {
+                                        logout()
+                                        handleMenu()}} > Logout </NavLink>
                                 </div>
                         </div>
                     </div>

@@ -14,8 +14,7 @@ class IngredientSchema(ma.SQLAlchemyAutoSchema):
 
     measurement_unit = fields.String(
         require=True,
-        validate=validate.OneOf(choices=['cups', 'fl oz', 'liters', 'pint', 'quart', 'oz', 'lbs', 'tbsp', 'tsp', 'serving']
-            )
+        validate=validate.OneOf(choices=['tsp', 'tbsp', 'cups', 'pt', 'qt', 'gal', 'oz', 'fl oz', 'lb', 'unit'])
     )
 
     recipe_id = fields.Integer(required=True)
