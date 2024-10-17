@@ -6,7 +6,6 @@ import { useFormik, Field, FieldArray, Formik, Form } from "formik";
 import Dropzone from 'react-dropzone'
 import toast from "react-hot-toast";
 import { object, string, array, number } from "yup";
-import { useDropzone} from 'react-dropzone'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -58,7 +57,7 @@ function Cookbook() {
     .required('Source is required'),
     category: string()
     .required('Category is required')
-    .oneOf(['breakfast', 'lunch', 'dinner', 'snack', 'dessert']),
+    .oneOf(['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert']),
     prep_time: string()
     .required('Prep Time is required'),
     ingredients: array().of(
@@ -69,8 +68,7 @@ function Cookbook() {
         amount: number('Must be a number')
         .required('Amount is required'),
         measurement_unit: string()
-        .oneOf(['tsp', 'tbsp', 'cups', 'pt', 'qt', 'gal', 'oz', 'fl oz', 'lb', ''])
-        .required('Unit is required'),
+        .oneOf(['tsp', 'tbsp', 'cups', 'pt', 'qt', 'gal', 'oz', 'fl oz', 'lb', ''], 'Must match approved units'),
       }),
     ),
   });
@@ -193,14 +191,14 @@ function Cookbook() {
             <Form className="size-[95%] text-md sm:size-[90%] flex flex-col justify-center items-center">
 
               {/* Form Exit */}
-              <div className='h-[4%] w-full flex items-start'>
-                <button className="bg-gray text-black rounded-xl flex justify-center w-full " type="button" onClick={newRecipe}>
+              <div className='h-[4%] w-full flex items-start '>
+                <button className="bg-gray border text-black rounded-xl flex justify-center w-full " type="button" onClick={newRecipe}>
                   <CloseIcon style={{size: '50px'}}/>
                 </button>
               </div>
 
               {/* Form Fields */}
-              <div className='h-[92%] w-full bg-white rounded-lg p-2 border border-shittake flex flex-col gap-2 overflow-y-scroll text-base'>
+              <div className='h-[92%] w-full bg-white rounded-lg p-2 border border-shittake flex flex-col gap-2 overflow-y-scroll scrollbar scrollbar-thumb-shittake text-base'>
 
                 {/* Name Field */}
                 <div className='flex flex-col gap-[4px]'>
@@ -341,7 +339,7 @@ function Cookbook() {
                                 onChange={formik.handleChange}
                                 className="border rounded-md p-1 w-[25%] sm:w-[30%]">
 
-                                  <option className='text-gray italic' value=''>Meas.</option>
+                                  <option className='text-gray italic' value=''>Units</option>
                                   <option value='tsp'>Teaspoon</option>
                                   <option value='tbsp'>Tablespoon</option>
                                   <option value='cups'>Cup</option>
