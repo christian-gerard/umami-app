@@ -119,7 +119,6 @@ class Recipes(Resource):
             db.session.commit()
 
             ingredients = data.get('ingredients')
-
             for ingredient in json.loads(ingredients):
                 new_ingredient = {
                     "name": ingredient.get('name'),
@@ -279,9 +278,7 @@ class Ingredients(Resource):
 api.add_resource(Ingredients, '/ingredients')
 
 
-
 # # # # # Auth Flow
-
 class Signup(Resource):
     def post(self):
         try:
