@@ -11,7 +11,7 @@ class Recipe(db.Model, SerializerMixin):
     # # # # # Attribute
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(20))
-    steps = db.Column(db.String())
+    instructions = db.Column(db.String())
     category = db.Column(db.String())
     source = db.Column(db.String())
     prep_time = db.Column(db.String())
@@ -40,9 +40,3 @@ class Recipe(db.Model, SerializerMixin):
         assert name, "Name must be provided"
         assert len(name) < 51, "Name must not be over 50 characters "
         return name
-
-    @validates('steps')
-    def validate_steps(self, key, steps):
-        assert steps, "Steps must be provided"
-        assert len(steps) > 10, "Steps must be at least 10 characters"
-        return steps

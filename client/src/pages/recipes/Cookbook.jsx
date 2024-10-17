@@ -50,9 +50,8 @@ function Cookbook() {
   const recipeSchema = object({
     name: string()
     .required('Name is required'),
-    steps: string()
-    .max(40000, 'Instructions are too long')
-    .required('Instructions is required'),
+    instructions: string()
+    .max(40000, 'Instructions are too long'),
     source: string()
     .required('Source is required'),
     category: string()
@@ -74,7 +73,7 @@ function Cookbook() {
 
   const initialValues = {
     name: "",
-    steps: "",
+    instructions: "",
     category: "",
     prep_time: "",
     source: "",
@@ -97,7 +96,9 @@ function Cookbook() {
 
       const fd = new FormData()
 
-      fd.set("image_file", files[0])
+      if(files[0] !== undefined) {
+        fd.set("image_file", files[0])
+      }
 
       for(let key in formData) { fd.set(key, formData[key])}
 
@@ -146,8 +147,6 @@ function Cookbook() {
     );
   }, [user]);
 
-
-
   return (
     <div className="w-full h-[92%] flex flex-col flex-grow px-6 ">
 
@@ -160,7 +159,7 @@ function Cookbook() {
         </div>
 
         {/* Recipe Cards */}
-        <div className="h-[90%] flex flex-col gap-3 overflow-y-scroll sm:flex-row sm:overflow-y-scroll flex-wrap">
+        <div className="h-[90%] border border-2 border-shittake rounded-xl flex flex-col gap-2 scrollbar scrollbar-thumb-shittake overflow-y-scroll sm:flex-row sm:flex-wrap sm:justify-center">
           {user ? (
             user.recipes
               .slice(startIndex, endIndex)
@@ -520,17 +519,17 @@ function Cookbook() {
                     Instructions
                   </label>
                   <textarea
-                    name="steps"
+                    name="instructions"
                     as='textarea'
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.steps}
+                    value={formik.values.instructions}
                     className="border rounded-md p-1 min-h-[150px]"
                     placeholder="Write instructions here..."
                   />
 
-                  {formik.errors.steps && formik.touched.steps && (
-                      <div className="text-shittake flex items-center">❌  {formik.errors.steps}</div>
+                  {formik.errors.instructions && formik.touched.instructions && (
+                      <div className="text-shittake flex items-center">❌  {formik.errors.instructions}</div>
                   )}
 
                 </div>
