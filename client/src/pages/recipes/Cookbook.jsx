@@ -287,10 +287,10 @@ function Cookbook() {
                       return (
                         <>
                           {ingredients.map((ingredient, index) => (
-                            <div key={index} className="flex flex-row w-full gap-1 text-sm">
+                            <div key={index} className="flex flex-row w-full gap-1 text-sm sm:text-base">
 
                               {/* Ingredient Number */}
-                              <div className='w-[3%] h-full text-black flex justify-center items-start'>
+                              <div className='w-[3%] sm:w-[5%] h-full text-black flex justify-center items-start'>
                                 <p className='text-xl flex items-center'>{index >= 0 ? index + 1 : ''}</p>
                               </div>
 
@@ -304,7 +304,7 @@ function Cookbook() {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 placeholder="Name"
-                                className="border rounded-md p-1 w-[50%]"/>
+                                className="border rounded-md p-1 w-[50%] sm:w-[50%]"/>
 
 
                               {/* Ingredient Amount */}
@@ -334,7 +334,7 @@ function Cookbook() {
                                 }
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
-                                className="border rounded-md p-1 w-[25%]">
+                                className="border rounded-md p-1 w-[25%] sm:w-[30%]">
                                   <option className='text-gray italic' value=''>Measur.</option>
                                   <option value='pint'>Pint</option>
                                   <option value='quart'>Quart</option>
@@ -347,7 +347,7 @@ function Cookbook() {
                               </Field>
 
                               {/* Add + Delete Buttons */}
-                              <div className={`w-[14%] flex flex-row`}>
+                              <div className={`w-[14%] sm:w-[7%] flex flex-row`}>
                                 {/* Remove Ingredient */}
                                 <button type="button" onClick={() => handleDeleteIngredient(index)} className="text-black rounded-lg">
                                   <RemoveIcon />
@@ -526,7 +526,7 @@ function Cookbook() {
 
               {/* Form Submit */}
               <div className='h-[4%] w-full flex items-end'>
-                <button type ='submit' className="text-lg bg-champagne text-black hover:bg-transparent rounded-lg w-full">
+                <button type ='submit' className="text-lg bg-champagne border border-black text-black hover:bg-transparent rounded-lg w-full">
                   Add Recipe
                 </button>
               </div>
