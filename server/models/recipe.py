@@ -20,7 +20,7 @@ class Recipe(db.Model, SerializerMixin):
     # # # # # Relationship
     user = db.relationship('User', back_populates='recipes')
     ingredients = db.relationship('Ingredient', back_populates='recipe', cascade='all, delete-orphan')
-    recipe_img = db.relationship('RecipeImg',uselist=False, back_populates='recipe', cascade='all, delete-orphan' )
+    # recipe_img = db.relationship('RecipeImg',uselist=False, back_populates='recipe', cascade='all, delete-orphan' )
 
     # # # # # Serialize
     serialize_rules=('-user')

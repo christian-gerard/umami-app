@@ -118,26 +118,26 @@ class Recipes(Resource):
             db.session.add(recipe)
             db.session.commit()
 
+
             ingredients = data.get('ingredients')
             for ingredient in json.loads(ingredients):
                 new_ingredient = {
                     "name": ingredient.get('name'),
-                    "measurement_unit": ingredient('measurement_unit'),
+                    "measurement_unit": ingredient.get('measurement_unit'),
                     "amount": ingredient.get('amount'),
                     "recipe_id": recipe.id
                 }
                 ingredient_obj = ingredient_schema.load(new_ingredient)
                 db.session.add(ingredient_obj)
+            db.session.commit()
 
             recipe_img = files['image_file']
-
             new_recipe_img = {
                 "name": recipe_img.name,
                 "mimetype": recipe_img.headers[1][1],
                 "recipe_id":recipe.id,
                 "img": recipe_img.read()
             }
-
             db.session.add(recipe_img_schema.load(new_recipe_img))
             db.session.commit()
             return recipe_schema.dump(recipe), 201
@@ -170,9 +170,6 @@ class RecipeById(Resource):
             ingredients = data.get('ingredients')
             recipe = Recipe.query.filter(Recipe.id == id).first()
             current_recipe_image = RecipeImg.query.filter_by(recipe_id=recipe.id).first()
-
-
-
 
             # PATCH RECIPE
             new_recipe = {
@@ -263,7 +260,6 @@ class RecipeById(Resource):
             return {"Error": str(e)}, 400
 
 api.add_resource(RecipeById, '/recipes/<int:id>')
-
 
 
 # # # # # Auth Flow
