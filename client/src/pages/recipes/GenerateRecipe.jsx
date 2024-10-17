@@ -6,8 +6,6 @@ import {OpenAI} from 'openai'
 import StraightenIcon from '@mui/icons-material/Straighten';
 import BlockIcon from '@mui/icons-material/Block';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Loading from '../../components/Loading'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -67,7 +65,9 @@ function GenerateRecipe() {
     validationSchema: recipeGenSchema,
     onSubmit: (formData) => {
 
-      const response = openai.chat.completions.create({
+      setIsGenerated(false)
+
+      openai.chat.completions.create({
         model: 'gpt-4',
         temperature: 0.5,
         messages: [{role: "user", content: `
@@ -132,9 +132,15 @@ function GenerateRecipe() {
         `
         }]
       }).then(resp => {
-        const json = resp.choices[0].message.content
-        const parsedJson = JSON.parse(json)
-        setGeneratedRecipe(parsedJson)
+        if(resp.ok){
+          const json = resp.choices[0].message.content
+          const parsedJson = JSON.parse(json)
+          setGeneratedRecipe(parsedJson)
+          setIsGenerated(true)
+
+        } else {
+          toast.error('Error: Please Try Again')
+        }
 
       })
 
