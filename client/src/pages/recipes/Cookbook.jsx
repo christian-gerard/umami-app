@@ -43,6 +43,8 @@ function Cookbook() {
     }
   };
 
+
+
   const newRecipe = () => {
     formik.resetForm()
     setRecipeForm(!recipeForm);
@@ -50,24 +52,23 @@ function Cookbook() {
 
   const recipeSchema = object({
     name: string()
-    .required(),
-    steps: string()
-    .required(),
+    .required('Name is required'),
+    steps: string(),
     source: string()
-    .required(),
+    .required('Source is required'),
     category: string()
-    .required()
+    .required('Category is required')
     .oneOf(['breakfast', 'lunch', 'dinner', 'snack', 'dessert']),
     prep_time: string()
-    .required(),
+    .required('Prep Time is required'),
     ingredients: array().of(
       object({
         name: string()
-        .required(),
-        amount: number()
-        .required(),
+        .required('Name is required'),
+        amount: number('Must be a number')
+        .required('Amount is required'),
         measurement_unit: string()
-        .required(),
+        .required('Unit is required'),
       }),
     ),
   });
@@ -144,8 +145,6 @@ function Cookbook() {
       <h1>Loading</h1>
     );
   }, [user]);
-
-
 
   return (
     <div className="w-full h-[92%] flex flex-col flex-grow px-6 ">
@@ -277,12 +276,10 @@ function Cookbook() {
                           remove(index)
                           const updatedIngredients = [...formik.values.ingredients]
                           updatedIngredients.splice(index, 1)
-                          formik.setTouched(`ingredients[${index}]`, '')
                           formik.setFieldValue('ingredients',updatedIngredients)
 
                         } else if (index === 0) {
-                          formik.setFieldValue('ingredients[0]', '')
-                          formik.setTouched('ingredients', '')
+                          formik.setFieldValue('ingredients[0]', { name: "", amount: "", measurement_unit: "" })
                         }
 
                       }
@@ -370,12 +367,27 @@ function Cookbook() {
                     }}
                   </FieldArray>
 
-                  {formik.errors.ingredients && formik.touched.ingredients &&
+
+                  {formik.errors.ingredients && formik.touched.ingredients ? (
+
                     formik.touched.ingredients.map((ing, index) => {
-                      Object.values(ing).every(value => value === true) && formik.errors.ingredients[index] && (
-                          <div className="text-shittake flex items-center">❌  {formik.errors.ingredients[index].name}</div>
-                      )
+                      if(Object.values(ing).every(value => value === true) && formik.errors.ingredients[index]) {
+                        const errors = formik.errors.ingredients[index]
+                        return Object.entries(errors).map(err =>
+                          <div className="text-shittake flex gap-1 flex items-end text-base">
+                            <p>❌</p>
+                            <p className='text-xl'>{index + 1}:</p>
+                            <p>{err[1]}</p>
+                          </div>
+                        )
+
+                      }
+
                     })
+
+                  )
+                  :
+                  <></>
                   }
 
 
