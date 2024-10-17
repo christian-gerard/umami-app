@@ -5,6 +5,7 @@ from datetime import datetime
 import re
 
 class RecipeImg(db.Model, SerializerMixin):
+
     # # # # # Table Name
     __tablename__ = 'recipe_imgs'
 
@@ -15,9 +16,7 @@ class RecipeImg(db.Model, SerializerMixin):
     mimetype = db.Column(db.String())
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'))
 
-
     # # # # # Relationship
-
     recipe = db.relationship('Recipe', back_populates='recipe_img')
 
     # # # # # Serialize
@@ -25,12 +24,9 @@ class RecipeImg(db.Model, SerializerMixin):
 
     # # # # # Representation
     def __repr__(self):
-        return f""" 
-            <Recipe_Img {self.id}
-                name: {self.name}
-                />
-        """
-
+        return f"""
+                <Recipe_Img {self.id} name: {self.name}/>
+                """
     # # # # # Validate
     @validates('name')
     def validate_name(self, key, name):

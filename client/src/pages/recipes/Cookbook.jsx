@@ -1,8 +1,9 @@
 import Recipe from "./Recipe";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useFormik, Field, FieldArray, Formik, Form } from "formik";
+import Dropzone from 'react-dropzone'
 import toast from "react-hot-toast";
 import { object, string, array, number } from "yup";
 import { useDropzone} from 'react-dropzone'
@@ -13,11 +14,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
 
-function titleCase(str) {
-  return str.toLowerCase().split(' ').map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(' ');
-}
 
 
 function Cookbook() {
@@ -29,7 +25,8 @@ function Cookbook() {
   const startIndex = (currentPage - 1) * 10;
   const endIndex = currentPage * 10;
   const [files, setFiles] = useState([]);
-  const {getRootProps, getInputProps} = useDropzone();
+
+
 
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -43,8 +40,6 @@ function Cookbook() {
     }
   };
 
-
-
   const newRecipe = () => {
     formik.resetForm()
     setRecipeForm(!recipeForm);
@@ -53,7 +48,10 @@ function Cookbook() {
   const recipeSchema = object({
     name: string()
     .required('Name is required'),
-    steps: string(),
+    steps: string()
+    .min(10, 'Must be at least 10 characters long')
+    .max(40000, 'Instructions are too long')
+    .required('Instructions is required'),
     source: string()
     .required('Source is required'),
     category: string()
@@ -92,6 +90,7 @@ function Cookbook() {
     initialValues,
     validationSchema: recipeSchema,
     onSubmit: (formData) => {
+      console.log(formData)
 
       formData['ingredients'] = JSON.stringify(formData['ingredients'])
 
@@ -101,29 +100,29 @@ function Cookbook() {
 
       for(let key in formData) { fd.set(key, formData[key])}
 
+      console.log(fd)
+      fetch("/api/v1/recipes", {
+        method: "POST",
+        body: fd,
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json().then((data) => {
+            updateRecipes([...user.recipes, data])
+            newRecipe();
+            nav("/cookbook");
+            toast.success("Recipe Created");
+          });
+        } else {
 
-      // fetch("/api/v1/recipes", {
-      //   method: "POST",
-      //   body: fd,
-      // })
-      // .then((res) => {
-      //   if (res.ok) {
-      //     return res.json().then((data) => {
-      //       updateRecipes([...user.recipes, data])
-      //       newRecipe();
-      //       nav("/cookbook");
-      //       toast.success("Recipe Created");
-      //     });
-      //   } else {
-
-      //     return res.json().then((data) => {
+          return res.json().then((data) => {
 
 
-      //       const message = data.Error
-      //       toast.error(message)
-      //     })
-      //   }
-      // });
+            const message = data.Error
+            toast.error(message)
+          })
+        }
+      });
 
 
 
@@ -145,6 +144,8 @@ function Cookbook() {
       <h1>Loading</h1>
     );
   }, [user]);
+
+
 
   return (
     <div className="w-full h-[92%] flex flex-col flex-grow px-6 ">
@@ -195,7 +196,7 @@ function Cookbook() {
               </div>
 
               {/* Form Fields */}
-              <div className='h-[92%] w-full bg-white sm:bg-gray rounded-lg p-2 border border-shittake flex flex-col gap-2 overflow-y-scroll text-base'>
+              <div className='h-[92%] w-full bg-white rounded-lg p-2 border border-shittake flex flex-col gap-2 overflow-y-scroll text-base'>
 
                 {/* Name Field */}
                 <div className='flex flex-col gap-[4px]'>
@@ -216,7 +217,7 @@ function Cookbook() {
                     />
 
                     {formik.errors.name && formik.touched.name && (
-                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.name)}</div>
+                      <div className="text-shittake flex items-center">❌  {formik.errors.name}</div>
                     )}
 
                 </div>
@@ -247,7 +248,7 @@ function Cookbook() {
 
 
                   {formik.errors.category && formik.touched.category && (
-                    <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.category)}</div>
+                    <div className="text-shittake flex items-center">❌  {formik.errors.category}</div>
                   )}
 
                 </div>
@@ -419,7 +420,7 @@ function Cookbook() {
                   </select>
 
                   {formik.errors.prep_time && formik.touched.prep_time && (
-                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.prep_time)}</div>
+                      <div className="text-shittake flex items-center">❌  {formik.errors.prep_time}</div>
                   )}
 
 
@@ -443,7 +444,7 @@ function Cookbook() {
                     placeholder="Enter Source"
                   />
                   {formik.errors.source && formik.touched.source && (
-                  <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.source)}</div>
+                  <div className="text-shittake flex items-center">❌  {formik.errors.source}</div>
                   )}
 
 
@@ -456,26 +457,37 @@ function Cookbook() {
                     Recipe Image
                   </label>
 
-                  <div  {...getRootProps({className: 'dropzone'})}>
-                    <input {...getInputProps()} />
-                    <p className='bg-shittake border text-white p-2 rounded-lg'>
+                  <Dropzone onDrop={acceptedFiles => {
+                    setFiles(acceptedFiles.map(file => Object.assign(file, {
+                      preview: URL.createObjectURL(file)
+                    })));}
+                  }>
+                    {({getRootProps, getInputProps}) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p className='bg-shittake border text-white p-2 rounded-lg'>
 
-                      <UploadFileIcon />
-                      Drag or Click Here
+                            <UploadFileIcon />
+                            Drag or Click Here
 
-                      </p>
-                  </div>
+                          </p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+
 
                   {files[0] ?
                   <div className='flex flex-row justify-between bg-champagne p-2 m-2 rounded-lg '>
 
-                    <div clasName='flex flex-row'>
+                    <div className='flex flex-row'>
                       <img alt='img_preview' src={files[0].preview} className='h-[50px] w-[50px]' />
 
                       <div className='flex flex-col'>
-
                         <p>{files[0].name}</p>
-                        <p>{files[0].size}</p>
+                        <p className='flex items-center text-sm'>{Math.round(files[0].size / 1024)} KB</p>
+
 
                       </div>
 
@@ -517,7 +529,7 @@ function Cookbook() {
                   />
 
                   {formik.errors.steps && formik.touched.steps && (
-                      <div className="text-shittake flex items-center">❌  {titleCase(formik.errors.steps)}</div>
+                      <div className="text-shittake flex items-center">❌  {formik.errors.steps}</div>
                   )}
 
                 </div>

@@ -14,13 +14,7 @@ class RecipeSchema(ma.SQLAlchemyAutoSchema):
             error="Title must be less than 50 characters")
         )
 
-    steps = fields.String(
-        require=True, 
-        validate=validate.Length(
-            min=10,
-            max=40000, 
-            error="Body must be between 10 and 40,000 characters")
-        )
+    instructions = fields.String()
 
     category = fields.String()
     source = fields.String()

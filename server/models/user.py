@@ -19,14 +19,13 @@ class User(db.Model, SerializerMixin):
 
     # # # # # Relationship
     recipes = db.relationship('Recipe', back_populates='user', cascade='all, delete')
-    cookbooks = db.relationship('Cookbook', back_populates='user', cascade='all, delete-orphan')
 
     # # # # # Serialize
     serialize_rules=()
 
     # # # # # Representation
     def __repr__(self):
-        return f""" 
+        return f"""
             <User {self.id}
                 username: {self.username}
                 created_at: {self.created_at}
@@ -39,13 +38,13 @@ class User(db.Model, SerializerMixin):
         assert username, "Username must be provided"
         assert len(username) < 21, "Username must not be over 20 characters"
         return username
-    
+
     @validates('email')
     def validate_email(self,key,email):
         assert '@' in email, 'Email address must contain @ symbol'
         assert '.' in email.split('@')[1], 'Email address must contain domain'
         return email
-    
+
     @validates('role')
     def validate_role(self,key,role):
         roles = ( 0, 1)

@@ -5,22 +5,15 @@ from config import app, db, api
 from werkzeug.exceptions import NotFound
 from functools import wraps
 from models.user import User
-from models.cookbook import Cookbook
-from models.food import Food
 from models.recipe import Recipe
 from models.ingredient import Ingredient
 from models.recipe_img import RecipeImg
-from schemas.cookbook_schema import cookbook_schema, cookbooks_schema
-from schemas.food_schema import food_schema, foods_schema
 from schemas.recipe_schema import recipe_schema, recipes_schema
 from schemas.ingredient_schema import ingredient_schema, ingredients_schema
 from schemas.recipe_img_schema import recipe_img_schema, recipes_img_schema
 from schemas.user_schema import user_schema, users_schema
 import json
 import ipdb
-
-
-
 
 # # # General Route
 # # Error Handling
@@ -95,45 +88,6 @@ api.add_resource(UserById, '/users/<int:id>')
 
 
 
-# # # # # Cookbooks
-class Cookbooks(Resource):
-    @login_required
-    def get(self):
-        try:
-            cookbooks = cookbooks_schema.dump(Cookbook.query)
-            return cookbooks, 200
-        except Exception as e:
-            return {"Error": str(e)}, 400
-
-api.add_resource(Cookbooks, '/cookbooks')
-
-class CookbookById(Resource):
-    @login_required
-    def get(self, id):
-        try:
-            cookbook = cookbook_schema.dump(Cookbook.query.get(id))
-            if cookbook:
-                return cookbook, 200
-            else:
-                return {"Error": "Cookbook not found"}, 404
-        except Exception as e:
-            return {"Error": str(e)}, 400
-
-api.add_resource(CookbookById, '/cookbooks/<int:id>')
-
-
-
-# # # # # Foods
-class Foods(Resource):
-    def get(self):
-        try:
-            foods = foods_schema.dump(Food.query)
-            return foods, 200
-        except Exception as e:
-            return {"Error": str(e)}, 400
-
-api.add_resource(Foods, '/foods')
-
 
 
 # # # # # Recipes
@@ -146,16 +100,12 @@ class Recipes(Resource):
         except Exception as e:
             return {"Error": str(e)}, 400
 
-
-
     @login_required
     def post(self):
         try:
 
-
             data = request.form
             files = request.files
-
             recipe = recipe_schema.load({
                 "name" : data.get("name"),
                 "steps" : data.get("steps"),
@@ -164,37 +114,21 @@ class Recipes(Resource):
                 "prep_time": data.get("prep_time"),
                 "user_id" : session.get("user_id")
             })
+
             db.session.add(recipe)
             db.session.commit()
 
-            # Pull Ingredients Data
             ingredients = data.get('ingredients')
 
-            # Find or Create ingredient
-            ## Loop through ingredients
-
             for ingredient in json.loads(ingredients):
-                if (food_obj := Food.query.filter_by(name=ingredient['name']).first()):
-                    # INSTANTIATE INGEDIENT OBJECT
-                    new_ingredient = {
-                        "measurement_unit": ingredient['measurement_unit'],
-                        "recipe_id": recipe.id,
-                        "food_id": food_obj.id,
-                        "amount": ingredient.get('amount')
-                    }
-
-                    ingredient_obj = ingredient_schema.load(new_ingredient)
-
-                    db.session.add(ingredient_obj)
-
-
-                    #################
-                else:
-
-
-                    return {"Error": f"{ingredient.name} is not a listed food item"}, 400
-
-
+                new_ingredient = {
+                    "name": ingredient.get('name'),
+                    "measurement_unit": ingredient('measurement_unit'),
+                    "amount": ingredient.get('amount'),
+                    "recipe_id": recipe.id
+                }
+                ingredient_obj = ingredient_schema.load(new_ingredient)
+                db.session.add(ingredient_obj)
 
             recipe_img = files['image_file']
 
@@ -205,12 +139,7 @@ class Recipes(Resource):
                 "img": recipe_img.read()
             }
 
-
-
             db.session.add(recipe_img_schema.load(new_recipe_img))
-
-
-
             db.session.commit()
             return recipe_schema.dump(recipe), 201
 
