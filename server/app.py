@@ -266,18 +266,6 @@ api.add_resource(RecipeById, '/recipes/<int:id>')
 
 
 
-# # # # # Ingredients
-class Ingredients(Resource):
-    def get(self):
-        try:
-            ingredients = ingredients_schema.dump(Ingredient.query)
-            return ingredients, 200
-        except Exception as e:
-            return {"Error": str(e)}, 400
-
-api.add_resource(Ingredients, '/ingredients')
-
-
 # # # # # Auth Flow
 class Signup(Resource):
     def post(self):
