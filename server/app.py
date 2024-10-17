@@ -103,12 +103,11 @@ class Recipes(Resource):
     @login_required
     def post(self):
         try:
-
             data = request.form
             files = request.files
             recipe = recipe_schema.load({
                 "name" : data.get("name"),
-                "steps" : data.get("steps"),
+                "instructions" : data.get("instructions"),
                 "category": data.get("category"),
                 "source": data.get("source"),
                 "prep_time": data.get("prep_time"),
@@ -130,7 +129,8 @@ class Recipes(Resource):
                 db.session.add(ingredient_obj)
             db.session.commit()
 
-            if recipe_img := files['image_file']:
+            if len(files) != 0:
+                recipe_img = files['image_file']
                 new_recipe_img = {
                     "name": recipe_img.name,
                     "mimetype": recipe_img.headers[1][1],

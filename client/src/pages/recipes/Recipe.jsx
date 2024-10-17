@@ -157,99 +157,99 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
       {route.id ?
 
         // Recipe Page
-        <div>
-          <div className='bg-champagne p-6 m-2 rounded-lg flex flex-col m-6'>
-            <div className='flex justify-between mb-8'>
+        <div className='h-[92%] w-full flex justify-center items-center'>
+          <div className='bg-champagne size-[90%] rounded-lg flex flex-col m-6'>
+            <div className='h-[10%] flex justify-between'>
               <button
                   className=" border rounded-lg p-2 m-2 text-black w-[75px]"
                   onClick={ () => nav('/cookbook')}
                 >
                   <ArrowBackIcon/>
                   Back
+              </button>
+
+              <div className='flex flex-row'>
+
+                <button
+                  className="bg-shittake rounded-lg p-2 m-2 text-white w-[100px] flex items-center"
+                  onClick={handleEdit}
+                >
+                  <EditIcon className='mr-1'/>
+                  EDIT
+                </button>
+                <button
+                  className="bg-white rounded-lg p-2 m-2 text-shittake w-[100px] flex items-center"
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon className='mr-1'/>
+                  DELETE
                 </button>
 
-                <div className='flex flex-row'>
-
-                  <button
-                    className="bg-shittake rounded-lg p-2 m-2 text-white w-[100px] flex items-center"
-                    onClick={handleEdit}
-                  >
-                    <EditIcon className='mr-1'/>
-                    EDIT
-                  </button>
-                  <button
-                    className="bg-white rounded-lg p-2 m-2 text-shittake w-[100px] flex items-center"
-                    onClick={handleDelete}
-                  >
-                    <DeleteIcon className='mr-1'/>
-                    DELETE
-                  </button>
-
-                </div>
+              </div>
 
             </div>
 
-            <div className='flex flex-row justify-between'>
+            <div className='h-[90%] flex flex-col justify-between'>
 
-              <div>
+              {/* Recipe Title */}
+              <div className='h-[10%] flex items-end'>
+                <p className="text-5xl text-black ">Recipe Name</p>
+              </div>
 
-                <p className="text-6xl bold mb-6 tracking-wide ">{currentRecipe.name}</p>
-                <img alt='recipe_img' src={ currentRecipe.recipe_img ? `data:${currentRecipe.recipe_img.mimetype};base64,${currentRecipe.recipe_img.img}` : recipeimgHolder } className='w-[400px] h-[400px] ml-8 rounded-2xl'/>
+              {/* Recipe Body */}
+
+              <div className='h-[90%] flex flex-col sm:flex-row '>
+
+                {/* Recipe Image */}
+                <div className='flex justify-center items-center'>
+                  <img alt='recipe_img' src={ currentRecipe.recipe_img ? `data:${currentRecipe.recipe_img.mimetype};base64,${currentRecipe.recipe_img.img}` : '/umami.png' } className='size-[300px] sm:size-[400px] rounded-2xl'/>
+                </div>
+
+                {/* Recipe Details */}
+                <div className='bg-gray scrollbar scrollbar-thumb-shittake'>
+                  <p className=''>Details</p>
+                  <p className=''>Category: {currentRecipe.category}</p>
+                  <p className=''>Source: {currentRecipe.source}</p>
+                  <p className=''>Prep Time: {currentRecipe.prep_time}</p>
+                  <p className='text-4xl bold mb-4'>Ingredients</p>
+                    {currentRecipe.ingredients ? (
+                      <ul>
+                        {currentRecipe.ingredients.map((ingredient) => (
+                          <li>
+                            {ingredient.food.name} {ingredient.amount}{" "}
+                            {ingredient.measurement_unit}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No Ingredients</p>
+                    )}
+                <p className=''>Instructions</p>
+                <p className="text-lg">{currentRecipe.instructions}</p>
+
+                </div>
 
               </div>
 
 
-              <div className='mt-16 text-xl'>
-                <h1 className='text-4xl bold mb-4'>Details</h1>
-                <p className='mb-6'>Category: {currentRecipe.category}</p>
-                <p className='mb-6'>Source: {currentRecipe.source}</p>
-                <p className='mb-6'>Prep Time: {currentRecipe.prep_time}</p>
-              </div>
-
-
-              <div className='flex flex-col mt-16 text-2xl'>
-
-                <h1 className='text-4xl bold mb-4'>Ingredients</h1>
-                  {currentRecipe.ingredients ? (
-                    <ul>
-                      {currentRecipe.ingredients.map((ingredient) => (
-                        <li>
-                          {ingredient.food.name} {ingredient.amount}{" "}
-                          {ingredient.measurement_unit}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>No Ingredients</p>
-                  )}
 
 
 
-              </div>
-
-              <div className='w-[30%] p-2 mt-16'>
-
-                <h1 className='text-4xl bold mb-4'>Instructions</h1>
-                <p className="text-lg">{currentRecipe.steps}</p>
 
 
 
-              </div>
+
+
+
+
+
+
 
 
             </div>
 
 
           </div>
-
-
-
-
-
-
-
-
-
 
           {editMode ? (
                     <div className="fixed inset-0 flex justify-center items-center transition-colors backdrop-blur">

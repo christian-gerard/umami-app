@@ -73,7 +73,7 @@ function Cookbook() {
 
   const initialValues = {
     name: "",
-    steps: "",
+    instructions: "",
     category: "",
     prep_time: "",
     source: "",
@@ -146,8 +146,6 @@ function Cookbook() {
       <h1>Loading</h1>
     );
   }, [user]);
-
-
 
   return (
     <div className="w-full h-[92%] flex flex-col flex-grow px-6 ">
