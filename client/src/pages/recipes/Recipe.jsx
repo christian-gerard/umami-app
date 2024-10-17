@@ -36,7 +36,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
   const handleDelete = () => {
 
-    fetch(`/recipes/${route.id}`, {
+    fetch(`/api/v1/recipes/${route.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -118,7 +118,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
   useEffect(() => {
     if (route.id) {
-      fetch(`/recipes/${route.id}`).then((res) => {
+      fetch(`/api/v1/recipes/${route.id}`).then((res) => {
         if (res.ok) {
           res
             .json()
@@ -132,7 +132,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                 source: data.source,
                 prep_time: data.prep_time,
                 ingredients: data.ingredients.map((ingredient) => ({
-                  name: ingredient.food.name,
+                  name: ingredient.name,
                   amount: ingredient.amount,
                   measurement_unit: ingredient.measurement_unit
                 }))
@@ -193,7 +193,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
               {/* Recipe Title */}
               <div className='h-[10%] flex items-end'>
-                <p className="text-5xl text-black ">Recipe Name</p>
+                <p className="text-5xl text-black ">{ currentRecipe.name ? currentRecipe.name : ''}</p>
               </div>
 
               {/* Recipe Body */}
@@ -201,31 +201,36 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
               <div className='h-[90%] flex flex-col sm:flex-row '>
 
                 {/* Recipe Image */}
-                <div className='flex justify-center items-center'>
-                  <img alt='recipe_img' src={ currentRecipe.recipe_img ? `data:${currentRecipe.recipe_img.mimetype};base64,${currentRecipe.recipe_img.img}` : '/umami.png' } className='size-[300px] sm:size-[400px] rounded-2xl'/>
+                <div className='h-[40%] sm:h-full sm:w-[50%] flex justify-center items-center overflow-hidden'>
+                  <img alt='recipe_img' src={ currentRecipe.recipe_img ? `data:${currentRecipe.recipe_img.mimetype};base64,${currentRecipe.recipe_img.img}` : '/umami.png' } className='size-[250px] sm:size-[400px] rounded-2xl'/>
                 </div>
 
                 {/* Recipe Details */}
-                <div className='bg-gray scrollbar scrollbar-thumb-shittake'>
-                  <p className=''>Details</p>
-                  <p className=''>Category: {currentRecipe.category}</p>
-                  <p className=''>Source: {currentRecipe.source}</p>
-                  <p className=''>Prep Time: {currentRecipe.prep_time}</p>
-                  <p className='text-4xl bold mb-4'>Ingredients</p>
-                    {currentRecipe.ingredients ? (
-                      <ul>
-                        {currentRecipe.ingredients.map((ingredient) => (
-                          <li>
-                            {ingredient.food.name} {ingredient.amount}{" "}
-                            {ingredient.measurement_unit}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p>No Ingredients</p>
-                    )}
-                <p className=''>Instructions</p>
-                <p className="text-lg">{currentRecipe.instructions}</p>
+                <div className='h-[60%] sm:h-full sm:w-[50%] border border-shittake sm:border-none  overflow-y-scroll scrollbar scrollbar-thumb-shittake '>
+
+                <p className='bg-shittake rounded-xl text-white p-1 mb-4 mt-2'>Ingredients</p>
+                  {currentRecipe.ingredients ? (
+                    <ul className='px-4 flex gap-4 flex-wrap'>
+                      {currentRecipe.ingredients.map((ingredient) => (
+                        <li className='bg-gray rounded-xl text-black p-1 flex gap-4'>
+                          {ingredient.name} {ingredient.amount}{" "}
+                          {ingredient.measurement_unit}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No Ingredients</p>
+                  )}
+                <p className='bg-shittake rounded-xl text-white p-1 mb-4 mt-2'>Instructions</p>
+                <p className="text-lg sm:px-4">{currentRecipe.instructions ? currentRecipe.instructions : "....."}</p>
+
+                <p className='bg-shittake rounded-xl text-white p-1 mb-4 mt-2'>Details</p>
+                <div className='px-4 flex gap-4 flex-wrap mb-2'>
+                  <p className='bg-gray rounded-xl text-black p-1 '>Prep Time: {currentRecipe.prep_time}</p>
+                  <p className='bg-gray rounded-xl text-black p-1 '>Category: {currentRecipe.category}</p>
+                  <p className='bg-gray rounded-xl text-black p-1 '>Source: {currentRecipe.source}</p>
+
+                </div>
 
                 </div>
 

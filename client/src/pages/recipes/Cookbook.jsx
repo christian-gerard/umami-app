@@ -49,10 +49,12 @@ function Cookbook() {
 
   const recipeSchema = object({
     name: string()
+    .max(50, 'Name must be 50 characters or less')
     .required('Name is required'),
     instructions: string()
-    .max(40000, 'Instructions are too long'),
+    .max(2000, 'Must be 2000 characters or less'),
     source: string()
+    .max(50, 'Source must be 50 characters or less')
     .required('Source is required'),
     category: string()
     .required('Category is required')
@@ -62,10 +64,12 @@ function Cookbook() {
     ingredients: array().of(
       object({
         name: string()
+        .max(50, 'Name must be 50 characters or less')
         .required('Name is required'),
         amount: number('Must be a number')
         .required('Amount is required'),
         measurement_unit: string()
+        .oneOf(['tsp', 'tbsp', 'cups', 'pt', 'qt', 'gal', 'oz', 'fl oz', 'lb', ''])
         .required('Unit is required'),
       }),
     ),
@@ -186,11 +190,11 @@ function Cookbook() {
       {recipeForm && (
         <div className="fixed inset-0 flex justify-center items-center transition-colors backdrop-blur">
           <Formik onSubmit={formik.handleSubmit} initialValues={initialValues}>
-            <Form className="size-[95%] text-md flex flex-col justify-center items-center">
+            <Form className="size-[95%] text-md sm:size-[90%] flex flex-col justify-center items-center">
 
               {/* Form Exit */}
               <div className='h-[4%] w-full flex items-start'>
-                <button className="bg-champagne text-black rounded-xl flex justify-center w-full " type="button" onClick={newRecipe}>
+                <button className="bg-gray text-black rounded-xl flex justify-center w-full " type="button" onClick={newRecipe}>
                   <CloseIcon style={{size: '50px'}}/>
                 </button>
               </div>
@@ -239,11 +243,11 @@ function Cookbook() {
                   placeholder="Category"
                   >
                     <option value='' className='bold italic'>Select Category</option>
-                    <option value='breakfast'>🥣 Breakfast</option>
-                    <option value='lunch'>🥪 Lunch</option>
-                    <option value='dinner'>🍽️ Dinner</option>
-                    <option value='snack'>🍎 Snack</option>
-                    <option value='dessert'>🍦 Dessert</option>
+                    <option value='Breakfast'>🥣 Breakfast</option>
+                    <option value='Lunch'>🥪 Lunch</option>
+                    <option value='Dinner'>🍽️ Dinner</option>
+                    <option value='Snack'>🍎 Snack</option>
+                    <option value='Dessert'>🍦 Dessert</option>
                   </select>
 
 
@@ -336,14 +340,17 @@ function Cookbook() {
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
                                 className="border rounded-md p-1 w-[25%] sm:w-[30%]">
-                                  <option className='text-gray italic' value=''>Measur.</option>
-                                  <option value='pint'>Pint</option>
-                                  <option value='quart'>Quart</option>
+
+                                  <option className='text-gray italic' value=''>Meas.</option>
+                                  <option value='tsp'>Teaspoon</option>
+                                  <option value='tbsp'>Tablespoon</option>
                                   <option value='cups'>Cup</option>
+                                  <option value='pt'>Pint</option>
+                                  <option value='qt'>Quart</option>
+                                  <option value='gal'>Gallon</option>
                                   <option value='oz'>Ounce</option>
                                   <option value='fl oz'>Fluid Ounce</option>
-                                  <option value='tbsp'>Tablespoon</option>
-                                  <option value='tsp'>Teaspoon</option>
+                                  <option value='lb'>Pound</option>
 
                               </Field>
 
@@ -537,7 +544,7 @@ function Cookbook() {
               </div>
 
               {/* Form Submit */}
-              <div className='h-[4%] w-full flex items-end'>
+              <div className='h-[4%] w-full flex items-end sm:mt-2'>
                 <button type ='submit' className="text-lg bg-champagne border border-black text-black hover:bg-transparent rounded-lg w-full">
                   Add Recipe
                 </button>
