@@ -50,11 +50,6 @@ class Recipe(db.Model, SerializerMixin):
     @validates('category')
     def validate_name(self, key, category):
         categories = ('Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert')
-        assert category, "Prep Time must be provided"
+        assert category, "Category must be provided"
         assert category in categories, "Must match approved categories"
         return category
-
-    @validates('source')
-    def validate_name(self, key, source):
-        assert source, "Prep Time must be provided"
-        return source

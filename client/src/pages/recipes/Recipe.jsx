@@ -72,8 +72,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
     instructions: string()
     .max(2000, 'Must be 2000 characters or less'),
     source: string()
-    .max(50, 'Source must be 50 characters or less')
-    .required('Source is required'),
+    .max(50, 'Source must be 50 characters or less'),
     category: string()
     .required('Category is required')
     .oneOf(['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert']),
@@ -365,6 +364,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                             {(fieldArrayProps) => {
                               const ingredients = formik.values.ingredients || [];
 
+
                               const handleAddIngredient = () => {
                                 formik.setFieldValue('ingredients', [...ingredients, { name: "", amount: "", measurement_unit: "unit" }]);
                               };
@@ -386,71 +386,72 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                                   {ingredients.map((ingredient, index) => {
 
                                     return (
-                                    <div key={index} className="flex flex-row w-full gap-1 text-sm sm:text-base">
+                                      <div key={index} className="flex flex-row w-full gap-1 text-sm sm:text-base">
 
-                                      {/* Ingredient Number */}
-                                      <div className='w-[3%] sm:w-[5%] h-full text-black flex justify-center items-start'>
-                                        <p className='text-xl flex items-center'>{index + 1}</p>
+                                        {/* Ingredient Number */}
+                                        <div className='w-[3%] sm:w-[5%] h-full text-black flex justify-center items-start'>
+                                          <p className='text-xl flex items-center'>{index + 1}</p>
+                                        </div>
+
+                                        {/* Ingredient Name */}
+                                        <Field name={`ingredients[${index}].name`}
+                                          value={formik.values.ingredients[index].name}
+                                          onChange={formik.handleChange}
+                                          onBlur={formik.handleBlur}
+                                          placeholder="Name"
+                                          className="border rounded-md p-1 w-[50%] sm:w-[50%]"/>
+
+                                        {/* Ingredient Amount */}
+                                        <Field name={`ingredients[${index}].amount`}
+                                          value={formik.values.ingredients[index].amount}
+                                          placeholder="#"
+                                          type='number'
+                                          onBlur={formik.handleBlur}
+                                          onChange={formik.handleChange}
+                                          step='1'
+                                          min="1"
+                                          max="10000"
+                                          className="border rounded-md p-1 w-[10%]"/>
+
+                                        {/* Ingredient Measurement */}
+                                        <Field as='select'
+                                          name={`ingredients[${index}].measurement_unit`}
+                                          value={formik.values.ingredients[index].measurement_unit}
+                                          placeholder="Unit"
+                                          onBlur={formik.handleBlur}
+                                          onChange={formik.handleChange}
+                                          className="border rounded-md p-1 w-[25%] sm:w-[30%]">
+
+                                            <option value='unit'>Units</option>
+                                            <option value='tsp'>Teaspoon</option>
+                                            <option value='tbsp'>Tablespoon</option>
+                                            <option value='cups'>Cup</option>
+                                            <option value='pt'>Pint</option>
+                                            <option value='qt'>Quart</option>
+                                            <option value='gal'>Gallon</option>
+                                            <option value='oz'>Ounce</option>
+                                            <option value='fl oz'>Fluid Ounce</option>
+                                            <option value='lb'>Pound</option>
+
+                                        </Field>
+
+                                        {/* Add + Delete Buttons */}
+                                        <div className={`w-[14%] sm:w-[7%] flex flex-row`}>
+                                          {/* Remove Ingredient */}
+                                          <button type="button" onClick={() => handleDeleteIngredient(index)} className="text-black rounded-lg">
+                                            <RemoveIcon />
+                                          </button>
+
+                                          {/* Add Ingredient */}
+                                          <button type="button" onClick={handleAddIngredient} className="text-black rounded-lg">
+                                            <AddIcon />
+                                          </button>
+                                        </div>
+
+
                                       </div>
-
-                                      {/* Ingredient Name */}
-                                      <Field name={`ingredients[${index}].name`}
-                                        value={formik.values.ingredients[index].name}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        placeholder="Name"
-                                        className="border rounded-md p-1 w-[50%] sm:w-[50%]"/>
-
-                                      {/* Ingredient Amount */}
-                                      <Field name={`ingredients[${index}].amount`}
-                                        value={formik.values.ingredients[index].amount}
-                                        placeholder="#"
-                                        type='number'
-                                        onBlur={formik.handleBlur}
-                                        onChange={formik.handleChange}
-                                        step='1'
-                                        min="1"
-                                        max="10000"
-                                        className="border rounded-md p-1 w-[10%]"/>
-
-                                      {/* Ingredient Measurement */}
-                                      <Field as='select'
-                                        name={`ingredients[${index}].measurement_unit`}
-                                        value={formik.values.ingredients[index].measurement_unit}
-                                        placeholder="Unit"
-                                        onBlur={formik.handleBlur}
-                                        onChange={formik.handleChange}
-                                        className="border rounded-md p-1 w-[25%] sm:w-[30%]">
-
-                                          <option value='unit'>Units</option>
-                                          <option value='tsp'>Teaspoon</option>
-                                          <option value='tbsp'>Tablespoon</option>
-                                          <option value='cups'>Cup</option>
-                                          <option value='pt'>Pint</option>
-                                          <option value='qt'>Quart</option>
-                                          <option value='gal'>Gallon</option>
-                                          <option value='oz'>Ounce</option>
-                                          <option value='fl oz'>Fluid Ounce</option>
-                                          <option value='lb'>Pound</option>
-
-                                      </Field>
-
-                                      {/* Add + Delete Buttons */}
-                                      <div className={`w-[14%] sm:w-[7%] flex flex-row`}>
-                                        {/* Remove Ingredient */}
-                                        <button type="button" onClick={() => handleDeleteIngredient(index)} className="text-black rounded-lg">
-                                          <RemoveIcon />
-                                        </button>
-
-                                        {/* Add Ingredient */}
-                                        <button type="button" onClick={handleAddIngredient} className="text-black rounded-lg">
-                                          <AddIcon />
-                                        </button>
-                                      </div>
-
-
-                                    </div>
-                                  ) }
+                                    )
+                                  }
 
                                 )}
                                 </>

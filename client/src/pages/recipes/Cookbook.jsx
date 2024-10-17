@@ -53,8 +53,7 @@ function Cookbook() {
     instructions: string()
     .max(2000, 'Must be 2000 characters or less'),
     source: string()
-    .max(50, 'Source must be 50 characters or less')
-    .required('Source is required'),
+    .max(50, 'Source must be 50 characters or less'),
     category: string()
     .required('Category is required')
     .oneOf(['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Dessert']),
