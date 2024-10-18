@@ -1,8 +1,8 @@
-"""First
+"""First Migration
 
-Revision ID: a1dedcb9b590
+Revision ID: b20e718df940
 Revises: 
-Create Date: 2024-10-16 22:09:47.772005
+Create Date: 2024-10-18 01:55:56.780796
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a1dedcb9b590'
+revision = 'b20e718df940'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,21 +21,19 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=20), nullable=False),
-    sa.Column('email', sa.String(), nullable=False),
     sa.Column('role', sa.Integer(), nullable=False),
     sa.Column('_password_hash', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
     op.create_table('recipes',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=20), nullable=True),
-    sa.Column('steps', sa.String(), nullable=True),
+    sa.Column('name', sa.String(length=50), nullable=True),
+    sa.Column('instructions', sa.String(length=2000), nullable=True),
     sa.Column('category', sa.String(), nullable=True),
-    sa.Column('source', sa.String(), nullable=True),
+    sa.Column('source', sa.String(length=50), nullable=True),
     sa.Column('prep_time', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
@@ -43,7 +41,7 @@ def upgrade():
     )
     op.create_table('ingredients',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('amount', sa.Integer(), nullable=False),
     sa.Column('measurement_unit', sa.String(), nullable=True),
     sa.Column('recipe_id', sa.Integer(), nullable=True),
