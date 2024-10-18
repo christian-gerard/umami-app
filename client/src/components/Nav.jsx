@@ -36,9 +36,7 @@ function Nav () {
                                     <NavLink id='link' to='/cookbook' onClick={handleMenu} className='hover:text-champagne' > Cookbook </NavLink>
                                     <NavLink id='link' to='/generate-recipes' onClick={handleMenu} className='hover:text-champagne' > AI Recipes </NavLink>
                                     <NavLink id='link' to='/profile' onClick={handleMenu} className='hover:text-champagne'  > Profile </NavLink>
-                                    <NavLink id='link' to='/' className='hover:text-champagne' onClick={() => {
-                                        logout()
-                                        handleMenu()}} > Logout </NavLink>
+                                    <NavLink id='link' to='/' className='hover:text-champagne' onClick={logout}> Logout </NavLink>
                                 </div>
                         </div>
                     </div>

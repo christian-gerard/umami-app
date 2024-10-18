@@ -7,12 +7,15 @@ from flask_bcrypt import Bcrypt
 from flask_marshmallow import Marshmallow
 from os import environ
 from flask_cors import CORS
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # # # # # App
 app = Flask(__name__, static_folder='../client/dist', static_url_path='')
 
 # # # # # App Declaration
-app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URI")
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("EXTERNAL_DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = environ.get("SESSION_SECRET")
 app.config["SESSION_TYPE"] = "sqlalchemy"

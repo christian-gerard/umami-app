@@ -651,7 +651,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
               <p className=''>Ingredients: {ingredients && ingredients.length !== 0 ? ingredients.length : "None"}</p>
             </div>
             <div className='w-[40%] flex justify-center items-center'>
-              <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '../public/umami.png' } alt='recipeimagedetails' className='w-[120px] h-[120px] sm:w-[120px] sm:h-[120px] border rounded-2xl'/>
+              <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '/umami.png' } alt='recipeimagedetails' className='w-[120px] h-[120px] sm:w-[120px] sm:h-[120px] border rounded-2xl'/>
             </div>
         </NavLink>
 
