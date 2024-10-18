@@ -12,7 +12,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # # # # # App Declaration
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cookbook.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = environ.get("SESSION_SECRET")
 app.config["SESSION_TYPE"] = "sqlalchemy"
