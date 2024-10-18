@@ -159,8 +159,6 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
                 }))
               });
 
-              console.log(isLoaded)
-
               setIsLoaded(true)
 
             })
@@ -185,13 +183,12 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
           ?
             <div className='h-[92%] w-full flex justify-center items-center'>
               <div className='bg-champagne size-[90%] rounded-lg flex flex-col m-6'>
-                <div className='h-[10%] flex justify-between'>
+                <div className='h-[7%] flex justify-between'>
                   <button
-                      className=" border rounded-lg p-2 m-2 text-black w-[75px]"
+                      className=" border rounded-lg m-2 text-sm text-black w-[75px]"
                       onClick={ () => nav('/cookbook')}
                     >
-                      <ArrowBackIcon/>
-                      Back
+                      <ArrowBackIcon style={{width:'20px', height:'20px' }}/>
                   </button>
 
                   <div className='flex flex-row'>
