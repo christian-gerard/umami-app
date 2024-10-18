@@ -74,6 +74,7 @@ class UserById(Resource):
     @login_required
     def delete(self, id):
         try:
+            ipdb.set_trace()
             user = db.session.get(User,id)
             if user:
                 db.session.delete(user)

@@ -130,7 +130,7 @@ function Auth() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.confirmPassword}
-                  className="m-2 text-black"
+                  className="m-2 p-2 text-black rounded-lg"
                 />
                 {formik.errors.confirmPassword &&
                   formik.touched.confirmPassword && (
@@ -145,7 +145,7 @@ function Auth() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
-                  className="m-2 text-black"
+                  className="m-2 p-2 text-black rounded-lg"
                 />
                 {formik.errors.email && formik.touched.email && (
                   <div className="error-message show">
