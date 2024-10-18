@@ -7,6 +7,9 @@ from flask_bcrypt import Bcrypt
 from flask_marshmallow import Marshmallow
 from os import environ
 from flask_cors import CORS
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # # # # # App
 app = Flask(__name__, static_folder='../client/dist', static_url_path='')
