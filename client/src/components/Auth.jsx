@@ -17,12 +17,7 @@ const signupSchema = object({
 
   password_hash: string()
     .min(8, "Password must be at least 8 characters long.")
-    .matches(/[a-zA-Z0-9]/, "Password should contain letters and numbers."),
-  // .minLowercase(1, 'Password must contain at least 1 lowercase letter.')
-  // .minUppercase(1, 'Password must contain at least 1 uppercase letter.')
-  // .minNumbers(1, 'Password must contain at least 1 number.'),
-  // .minSymbols(1, 'Password must contain at least 1 special character.')
-  // .required('Password is required.'),
+    .require("Password is required"),
 
   confirmPassword: string()
     .oneOf([Yup.ref("password_hash"), null], "Passwords must match.")
@@ -31,9 +26,11 @@ const signupSchema = object({
 
 // // // // // Login
 const loginSchema = object({
-  username: string().required("Username is required."),
-  // Add additional password requirements
-  password_hash: string(),
+  username: string()
+  .required("Username is required."),
+  password_hash: string()
+  .min(8, "Password must be at least 8 characters long.")
+  .require("Password is required"),
 });
 
 // // // // // Initial Values
