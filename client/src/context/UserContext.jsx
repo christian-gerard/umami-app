@@ -14,7 +14,9 @@ const UserProvider = ({children}) => {
               fetch('/api/v1/logout', { method: 'DELETE' }).then((res) => {
                   if (res.status === 204) {
                       setUser(null)
-                      toast.success('Logged Out')
+                      return res.json().then( data => {
+                        toast.success('Logged Out')
+                      })
                   } else {
                       toast.error('Something whent wrong while logging out. Please try again.')
                   }
