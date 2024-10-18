@@ -8,15 +8,22 @@ import { object, string } from 'yup'
 
 
 function Profile() {
-    const { user, removeUserData, updateUser } = useContext(UserContext)
+    const { user, setUser, removeUserData, updateUser } = useContext(UserContext)
 
 	const deleteUser = () => {
-		fetch('/api/v1/users', {
+		fetch(`/api/v1/users/${user.id}`, {
 			method: 'DELETE'
 		})
+		.then( res => {
+			if(res.ok){
+				removeUserData()
+				nav('/')
+				toast.success('User Deleted')
+			} else {
+				toast.error('Error: Unable to delete user')
+			}
+		})
 	}
-
-	console.log(user)
 
     return (
 		<>
@@ -27,16 +34,16 @@ function Profile() {
 					<p>Username: { user ? user.username : 'No Name'}</p>
 				</div>
 
-				<div className='h-[80%] bg-gray px-4 text-lg p-2'>
+				<div className='h-[80%] bg-shittake text-white px-4 text-lg p-2'>
 
 					<p>Email: {user ? user.email : 'Email Not Listed'}</p>
-					<p>Created at: {user.created_at ? user.created_at.slice(0,10) : 'Email Not Listed'}</p>
+					<p>Created at: {user ? user.created_at.slice(0,10) : 'Email Not Listed'}</p>
 					<p>CookBook: {user.recipes.length !== 0 ? user.recipes.length : '0'} Recipes</p>
 
 				</div>
 
 				<div className='h-[10%] flex justify-center items-cente px-4 py-2'>
-					<button className=' w-full bg-shittake text-white rounded-xl p-1'>Delete User</button>
+					<button className=' w-full bg-shittake text-white rounded-xl p-1' onClick={deleteUser}>Delete User</button>
 
 				</div>
 
