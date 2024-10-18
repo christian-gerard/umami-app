@@ -8,7 +8,8 @@ import { object, string } from 'yup'
 
 
 function Profile() {
-    const { user, setUser, removeUserData, updateUser } = useContext(UserContext)
+    const { user, logout } = useContext(UserContext)
+	const nav = useNavigate()
 
 	const deleteUser = () => {
 		fetch(`/api/v1/users/${user.id}`, {
@@ -16,9 +17,9 @@ function Profile() {
 		})
 		.then( res => {
 			if(res.ok){
-				removeUserData()
-				nav('/')
 				toast.success('User Deleted')
+				logout()
+				nav('/')
 			} else {
 				toast.error('Error: Unable to delete user')
 			}
@@ -36,7 +37,6 @@ function Profile() {
 
 				<div className='h-[80%] bg-shittake text-white px-4 text-lg p-2'>
 
-					<p>Email: {user ? user.email : 'Email Not Listed'}</p>
 					<p>Created at: {user ? user.created_at.slice(0,10) : 'Email Not Listed'}</p>
 					<p>CookBook: {user.recipes.length !== 0 ? user.recipes.length : '0'} Recipes</p>
 

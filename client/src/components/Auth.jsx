@@ -13,10 +13,6 @@ const signupSchema = object({
     .max(20, "Username must be 20 characters or less.")
     .required("Username is required."),
 
-  email: string()
-  .min
-  .required('Email is required'),
-
   password_hash: string()
     .min(8, "Password must be at least 8 characters long.")
     .required("Password is required"),
@@ -37,7 +33,6 @@ const loginSchema = object({
 // // // // // Initial Values
 const initialValues = {
   username: "",
-  email: "",
   password_hash: "",
   confirmPassword: "",
   role: 1,
@@ -136,20 +131,6 @@ function Auth() {
                       {formik.errors.confirmPassword}
                     </div>
                   )}
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.email}
-                  className="m-2 p-2 text-black rounded-lg"
-                />
-                {formik.errors.email && formik.touched.email && (
-                  <div className="error-message show">
-                    {formik.errors.email}
-                  </div>
-                )}
               </>
             )}
             <input

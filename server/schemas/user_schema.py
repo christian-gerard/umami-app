@@ -19,11 +19,6 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
             )
         ]
     )
-
-    email = fields.Email(
-        required=True
-    )
-
     role = fields.Integer(
         required=True,
         validate=validate.OneOf(choices=[0,1])

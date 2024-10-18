@@ -162,13 +162,13 @@ function Cookbook() {
             </div>
 
             {/* Recipe Cards */}
-            <div className="h-[90%] border border-2 border-shittake rounded-xl flex flex-col gap-2 scrollbar scrollbar-thumb-shittake overflow-y-scroll sm:flex-row sm:flex-wrap sm:justify-center">
-              {user ? (
+            <div className="h-[90%] border border-2 border-shittake rounded-xl overflow-y-scroll scrollbar scrollbar-thumb-shittake p-4 grid sm:grid-cols-2 gap-4">
+              {user.recipes.length > 0 ? (
                 user.recipes
                   .slice(startIndex, endIndex)
                   .map((recipe) => <Recipe key={recipe.id} {...recipe} />)
               ) : (
-                <p>LOADING...</p>
+                <p className='w-full h-full text-center text-4xl flex justify-center items-center text-shittake'>No Recipes Yet...</p>
               )}
             </div>
 
