@@ -13,15 +13,16 @@ const signupSchema = object({
     .max(20, "Username must be 20 characters or less.")
     .required("Username is required."),
 
-  email: string(),
+  email: string()
+  .min
+  .required('Email is required'),
 
   password_hash: string()
     .min(8, "Password must be at least 8 characters long.")
-    .require("Password is required"),
+    .required("Password is required"),
 
   confirmPassword: string()
     .oneOf([Yup.ref("password_hash"), null], "Passwords must match.")
-    .required("Confirm Password is required."),
 });
 
 // // // // // Login
@@ -30,7 +31,7 @@ const loginSchema = object({
   .required("Username is required."),
   password_hash: string()
   .min(8, "Password must be at least 8 characters long.")
-  .require("Password is required"),
+  .required("Password is required"),
 });
 
 // // // // // Initial Values
@@ -78,7 +79,7 @@ function Auth() {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen  ">
+    <div className="flex flex-col justify-center items-center h-full">
       <div className="bg-shittake p-6 text-white rounded-xl">
         <h1 className="text-6xl flex justify-center tracking-[0.25em] p-6">
           UMAMI
