@@ -74,7 +74,6 @@ class UserById(Resource):
     @login_required
     def delete(self, id):
         try:
-            ipdb.set_trace()
             user = db.session.get(User,id)
             if user:
                 db.session.delete(user)
@@ -254,7 +253,6 @@ class Signup(Resource):
             new_user = user_schema.load({
                 "username": data.get('username'),
                 "password_hash": data.get("password_hash"),
-                "email": data.get("email"),
                 "role": data.get("role")
             })
             db.session.add(new_user)

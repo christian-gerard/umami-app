@@ -216,7 +216,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
                   {/* Recipe Title */}
                   <div className='h-[10%] flex items-end'>
-                    <p className="text-5xl text-black ">{ currentRecipe.name ? currentRecipe.name : ''}</p>
+                    <p className="text-4xl sm:text-5xl text-black ">{ currentRecipe.name ? currentRecipe.name : ''}</p>
                   </div>
 
                   {/* Recipe Body */}
@@ -642,8 +642,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
         :
 
         // Recipe Card
-        <NavLink to={`/recipes/${id}`} className='sm:w-[350px]'>
-          <div className=" border bg-champagne rounded-lg p-2 flex flex-row">
+        <NavLink to={`/recipes/${id}`} className='min-w-[250px] h-[200px] bg-champagne rounded-lg p-4 flex flex-row'>
             <div className='w-[60%] text-md overflow-hidden'>
               <p className="text-2xl pb-[0.25px]">{name ? name : ""}</p>
               <p className=''>Category: {category ? category[0].toUpperCase() : ""}{category ? category.substring(1) : "None"}</p>
@@ -654,7 +653,6 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
             <div className='w-[40%] flex justify-center items-center'>
               <img src={ recipe_img ? `data:${recipe_img.mimetype};base64,${recipe_img.img}` : '../public/umami.png' } alt='recipeimagedetails' className='w-[120px] h-[120px] sm:w-[120px] sm:h-[120px] border rounded-2xl'/>
             </div>
-          </div>
         </NavLink>
 
       }

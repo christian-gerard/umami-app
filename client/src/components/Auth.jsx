@@ -13,33 +13,26 @@ const signupSchema = object({
     .max(20, "Username must be 20 characters or less.")
     .required("Username is required."),
 
-  email: string(),
-
   password_hash: string()
     .min(8, "Password must be at least 8 characters long.")
-    .matches(/[a-zA-Z0-9]/, "Password should contain letters and numbers."),
-  // .minLowercase(1, 'Password must contain at least 1 lowercase letter.')
-  // .minUppercase(1, 'Password must contain at least 1 uppercase letter.')
-  // .minNumbers(1, 'Password must contain at least 1 number.'),
-  // .minSymbols(1, 'Password must contain at least 1 special character.')
-  // .required('Password is required.'),
+    .required("Password is required"),
 
   confirmPassword: string()
     .oneOf([Yup.ref("password_hash"), null], "Passwords must match.")
-    .required("Confirm Password is required."),
 });
 
 // // // // // Login
 const loginSchema = object({
-  username: string().required("Username is required."),
-  // Add additional password requirements
-  password_hash: string(),
+  username: string()
+  .required("Username is required."),
+  password_hash: string()
+  .min(8, "Password must be at least 8 characters long.")
+  .required("Password is required"),
 });
 
 // // // // // Initial Values
 const initialValues = {
   username: "",
-  email: "",
   password_hash: "",
   confirmPassword: "",
   role: 1,
@@ -81,7 +74,7 @@ function Auth() {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen  ">
+    <div className="flex flex-col justify-center items-center h-full">
       <div className="bg-shittake p-6 text-white rounded-xl">
         <h1 className="text-6xl flex justify-center tracking-[0.25em] p-6">
           UMAMI
@@ -138,20 +131,6 @@ function Auth() {
                       {formik.errors.confirmPassword}
                     </div>
                   )}
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.email}
-                  className="m-2 p-2 text-black rounded-lg"
-                />
-                {formik.errors.email && formik.touched.email && (
-                  <div className="error-message show">
-                    {formik.errors.email}
-                  </div>
-                )}
               </>
             )}
             <input

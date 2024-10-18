@@ -11,7 +11,6 @@ class User(db.Model, SerializerMixin):
     # # # # # Attribute
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
     role = db.Column(db.Integer, nullable=False)
     _password_hash = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now())
@@ -38,12 +37,6 @@ class User(db.Model, SerializerMixin):
         assert username, "Username must be provided"
         assert len(username) < 21, "Username must not be over 20 characters"
         return username
-
-    @validates('email')
-    def validate_email(self,key,email):
-        assert '@' in email, 'Email address must contain @ symbol'
-        assert '.' in email.split('@')[1], 'Email address must contain domain'
-        return email
 
     @validates('role')
     def validate_role(self,key,role):
