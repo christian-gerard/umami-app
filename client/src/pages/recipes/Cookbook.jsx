@@ -193,7 +193,7 @@ function Cookbook() {
 
                   {/* Form Exit */}
                   <div className='h-[4%] w-full flex items-start '>
-                    <button className="bg-gray border text-black rounded-xl flex justify-center w-full " type="button" onClick={newRecipe}>
+                    <button className="bg-champagne border text-black rounded-xl flex justify-center w-full " type="button" onClick={newRecipe}>
                       <CloseIcon style={{size: '50px'}}/>
                     </button>
                   </div>
