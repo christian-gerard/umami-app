@@ -1,4 +1,4 @@
-from flask import request, session, g
+from flask import send_from_directory, request, session, g
 from time import time
 from flask_restful import Resource
 from config import app, db, api
@@ -12,8 +12,22 @@ from schemas.recipe_schema import recipe_schema, recipes_schema
 from schemas.ingredient_schema import ingredient_schema, ingredients_schema
 from schemas.recipe_img_schema import recipe_img_schema, recipes_img_schema
 from schemas.user_schema import user_schema, users_schema
+import os
 import json
 import ipdb
+
+@app.route('/api/hello')
+def hello():
+    return {"message": "Hello from Flask!"}
+
+# Serve React Frontend
+@app.route('/')
+@app.route('/<path:path>')
+def serve_react(path=None):
+    if path and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 # # # General Route
 # # Error Handling
