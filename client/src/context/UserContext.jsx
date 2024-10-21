@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import { Navigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 export const UserContext = createContext()
@@ -54,9 +55,8 @@ const UserProvider = ({children}) => {
       .then(resp => {
           if (resp.ok) {
           resp.json().then(setUser)
-
           } else {
-          toast.error('Please log in')
+
           }
       })
     }, [])
