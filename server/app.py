@@ -1,4 +1,4 @@
-from flask import send_from_directory, request, session, g
+from flask import send_from_directory, request, session, g, redirect
 from time import time
 from flask_restful import Resource
 from config import app, db, api
@@ -27,6 +27,8 @@ def hello():
 def serve_react(path=None):
     if path and os.path.exists(os.path.join(app.static_folder, path)):
         return send_from_directory(app.static_folder, path)
+    elif path:
+        return redirect('/')
     else:
         return send_from_directory(app.static_folder, 'index.html')
 
