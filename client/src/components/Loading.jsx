@@ -1,6 +1,12 @@
 import {useLocation} from 'react-router-dom'
+import { toast } from 'react-hot-toast'
+
 function Loading() {
   const loc = useLocation()
+
+  if(loc.pathname === '/generate-recipes'){
+    toast('Generation may take a few minutes')
+  }
     return(
         <div className='w-full h-[92%] flex justify-center items-center'>
 
