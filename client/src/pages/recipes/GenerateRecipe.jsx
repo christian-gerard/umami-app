@@ -105,12 +105,12 @@ function GenerateRecipe() {
   const initialValues = {
     added_ingredients: false,
     restrictions: "None",
-    strictness: 1,
+    strictness: 5,
     ingredients: [
       {
         name: "",
         amount: "",
-        measurement_unit: "Unit",
+        measurement_unit: "unit",
       }
     ],
   };
@@ -256,7 +256,7 @@ function GenerateRecipe() {
     }
   },[generatedRecipe])
 
-
+  console.log(recipeFormik.values)
   return (
 
     <>

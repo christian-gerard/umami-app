@@ -216,7 +216,7 @@ function Recipe({ id, name, steps, ingredients, category, prep_time, source, rec
 
                   {/* Recipe Title */}
                   <div className='h-[10%] flex items-end'>
-                    <p className="text-4xl sm:text-5xl text-black ">{ currentRecipe.name ? currentRecipe.name : ''}</p>
+                    <p className="text-4xl sm:text-5xl text-black pl-2 ">{ currentRecipe.name ? currentRecipe.name : ''}</p>
                   </div>
 
                   {/* Recipe Body */}
