@@ -168,7 +168,7 @@ function Cookbook() {
                   .slice(startIndex, endIndex)
                   .map((recipe) => <Recipe key={recipe.id} {...recipe} />)
               ) : (
-                <p className='w-full h-full text-center text-4xl flex justify-center items-center text-shittake fixed'>No Recipes Yet...</p>
+                <p className='w-full h-full text-center text-4xl flex justify-center items-center text-shittake'>No Recipes Yet...</p>
               )}
             </div>
 

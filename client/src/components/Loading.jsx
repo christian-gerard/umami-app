@@ -1,11 +1,18 @@
+import {useLocation} from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 
 function Loading() {
+  const loc = useLocation()
+
+  if(loc.pathname === '/generate-recipes'){
+    toast('Generation may take a few minutes')
+  }
     return(
         <div className='w-full h-[92%] flex justify-center items-center'>
 
-          <h1 className='bold text-6xl mr-8'>
+          <p className='bold text-6xl mr-8'>
             LOADING
-          </h1>
+          </p>
 
         <div role="status">
             <svg aria-hidden="true" class="w-[60px] h-[60px] text-champagne animate-spin dark:shittake fill-shittake" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,6 +21,7 @@ function Loading() {
             </svg>
             <span class="sr-only">Loading...</span>
         </div>
+
 
         </div>
     )

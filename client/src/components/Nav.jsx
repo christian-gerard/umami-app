@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,14 +7,17 @@ function Nav () {
     const {user, logout} = useContext(UserContext)
     const [viewMenu, setViewMenu] = useState(false)
 
+    const loc = useLocation()
+
     const handleMenu = () => {
         setViewMenu(!viewMenu)
     }
+    console.log(loc)
 
     return (
         <>
             {
-                user ?
+                user && loc.pathname !== '/' ?
                 <>
                 <div className='h-[8%] bg-shittake text-lg text-white flex flex-col sm:flex-row pb-2 rounded-b-lg'>
                     <p onClick={handleMenu} className='text-3xl hover:text-champagne tracking-[0.25em] h-full flex items-end px-6'>UMAMI</p>
