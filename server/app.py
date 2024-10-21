@@ -22,13 +22,11 @@ def hello():
     return {"message": "Hello from Flask!"}
 
 # Serve React Frontend
-@app.route('/')
+@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def serve_react(path=None):
-    if path != '' and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+def serve_react(path):
+    return send_from_directory(app.static_folder, 'index.html')
+
 
 
 # # # General Route
