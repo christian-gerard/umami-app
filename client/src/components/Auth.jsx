@@ -40,7 +40,7 @@ const initialValues = {
 
 function Auth() {
   const { login } = useContext(UserContext);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const requestUrl = isLogin ? "/api/v1/login" : "/api/v1/signup";
   const formik = useFormik({

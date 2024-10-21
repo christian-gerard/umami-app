@@ -1,10 +1,14 @@
 import './styles.css';
+import { useContext } from 'react'
+import { UserContext } from './context/UserContext'
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Nav from './components/Nav'
+import Auth from './components/Auth'
 import Footer from './components/Footer'
 
 function App() {
+  const { user } = useContext(UserContext)
 
   return (
 
@@ -38,7 +42,7 @@ function App() {
         />
         <div className='h-[95%]'>
           <Nav />
-          <Outlet />
+          {user ? <Outlet /> : <Auth />}
         </div>
         <div className='h-[5%]'>
           <Footer />
