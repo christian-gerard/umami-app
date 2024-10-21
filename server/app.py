@@ -25,7 +25,10 @@ def hello():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve_react(path):
-    return send_from_directory(app.static_folder, 'index.html')
+    if path:
+        redirect('/', code=302)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 
