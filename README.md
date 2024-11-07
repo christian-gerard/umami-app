@@ -11,4 +11,14 @@ Have you ever come home one night and realized, "I forgot to get groceries!" Its
 ## [Video Demo](https://www.loom.com/share/f7b93364901146dcb614b94e37909892?sid=3bb36715-ee9d-4367-a54f-6bbe1c01370b)
 
 
+### Features
+- Manage Recipes with Ingredients, Images, and other data
+- Generate Recipes using the ChatGPT API to either find ways to cook from home or explore new recipes
+
+
+### Specs
+#### FrontEnd
+The user interface was built using React and Tailwind CSS.
+#### BackEnd
+The backend API was built with Flask and PostgreSQL.
 
