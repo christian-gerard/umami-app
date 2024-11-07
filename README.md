@@ -1,5 +1,3 @@
-
-
 <pre id="taag_font_RubiFont" class="fig" contenteditable="true"><br class="Apple-interchange-newline text-center"/>▗▖ ▗▖▗▖  ▗▖ ▗▄▖ ▗▖  ▗▖▗▄▄▄▖
 ▐▌ ▐▌▐▛▚▞▜▌▐▌ ▐▌▐▛▚▞▜▌  █
 ▐▌ ▐▌▐▌  ▐▌▐▛▀▜▌▐▌  ▐▌  █
